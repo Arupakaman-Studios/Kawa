@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph_koans"
+    app:startDestination="@id/itemAllKoans">
+
+    <fragment
+        android:id="@+id/itemAllKoans"
+        android:name="com.arupakaman.kawa.ui.koans.list.KoansListingFragment"
+        android:label="fragment_koans_listing"
+        tools:layout="@layout/fragment_koans_listing" >
+        <action
+            android:id="@+id/action_koansListingFragment_to_koanDetailFragment"
+            app:destination="@id/koanDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemSearch"
+        android:name="com.arupakaman.kawa.ui.koans.search.SearchKoansFragment"
+        android:label="fragment_search_koans"
+        tools:layout="@layout/fragment_search_koans" >
+        <action
+            android:id="@+id/action_searchKoansFragment_to_koanDetailFragment"
+            app:destination="@id/koanDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/koanDetailFragment"
+        android:name="com.arupakaman.kawa.ui.koans.detail.KoanDetailFragment"
+        android:label="fragment_koan_detail"
+        tools:layout="@layout/fragment_koan_detail" >
+        <argument
+            android:name="koan"
+            app:argType="com.arupakaman.kawa.database.entities.Koan" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemAbout"
+        android:name="com.arupakaman.kawa.ui.koans.about.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+</navigation>

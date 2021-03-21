@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorImageFrameBackground" format="reference"/>
+
+    <attr name="colorBorder" format="reference"/>
+
+    <attr name="colorKoanBg" format="reference"/>
+
+    <attr name="colorItemUnselected" format="reference"/>
+
+    <attr name="colorItemSelected" format="reference"/>
+</resources>

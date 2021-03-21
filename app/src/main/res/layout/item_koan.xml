@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="koan"
+            type="com.arupakaman.kawa.database.entities.Koan" />
+        <variable
+            name="koanClickListener"
+            type="com.arupakaman.kawa.ui.koans.list.KoanClickListener" />
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:onClick="@{()->koanClickListener.onClick(koan)}"
+    android:background="@drawable/bg_koan"
+    android:layout_marginBottom="@dimen/_10sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/_20sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/imgKoan"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/koan1"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:contentDescription="@string/content_desc_koan_image" />
+    
+    <!--<ImageView
+        android:id="@+id/imgKawaCircle"
+        android:src="@drawable/ic_kawa_circle"
+        app:layout_constraintEnd_toStartOf="@+id/imgKoan"
+        app:layout_constraintStart_toStartOf="@+id/imgKoan"
+        app:layout_constraintTop_toBottomOf="@+id/imgKoan"
+        app:layout_constraintBottom_toBottomOf="@+id/imgKoan"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:contentDescription="@string/content_desc_koan_image" />-->
+
+    <ImageView
+        android:id="@+id/imgKawaCircle"
+        android:src="@drawable/ic_kawa_circle"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_35sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:contentDescription="@string/content_desc_koan_image" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:textAppearance="?textAppearanceBody1"
+        app:layout_constraintTop_toTopOf="@+id/imgKawaCircle"
+        app:layout_constraintBottom_toBottomOf="@+id/imgKawaCircle"
+        app:layout_constraintStart_toStartOf="@+id/imgKawaCircle"
+        app:layout_constraintEnd_toEndOf="@+id/imgKawaCircle"
+        android:textSize="@dimen/_12ssp"
+        tools:text="//01"
+        android:text="@{`//`+koan.id}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:src="@drawable/ic_semi_circle"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgKawaCircle"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:paddingVertical="@dimen/_3sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:contentDescription="@string/content_desc_open_koan" />
+
+    <!--<com.google.android.material.textview.MaterialTextView
+        android:includeFontPadding="false"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgKawaCircle"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+        android:textSize="@dimen/_20ssp"
+        android:textAppearance="?textAppearanceCaption"
+        android:text="@string/letter_d"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>-->
+
+    <View
+        android:id="@+id/dividerKoan"
+        android:background="?colorBorder"
+        android:layout_width="1dp"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgKawaCircle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:textAppearance="@style/subtitle1"
+        android:layout_marginEnd="@dimen/_10sdp"
+        tools:text="how grass &amp; trees became enlightened"
+        android:text="@{koan.title}"
+        android:maxLines="4"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dividerKoan"
+        android:layout_width="0dp"
+        app:layout_constrainedHeight="true"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

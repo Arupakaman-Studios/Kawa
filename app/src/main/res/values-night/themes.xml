@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Kawa" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <item name="android:windowBackground">@color/colorLayoutBackgroundDark</item>
+        <item name="android:colorBackground">@color/colorLayoutBackgroundDark</item>
+
+        <!-- Custom colors -->
+        <item name="colorImageFrameBackground">@color/colorFrameDark</item>
+        <item name="colorBorder">@color/colorBorderDark</item>
+        <item name="colorKoanBg">@color/colorKoanBgDark</item>
+        <item name="colorItemSelected">@color/colorItemSelectedDark</item>
+        <item name="colorItemUnselected">@color/colorItemUnselectedDark</item>
+
+        <item name="textAppearanceHeadline6">@style/headline6</item>
+        <item name="android:textViewStyle">@style/defaultTextViewStyle</item>
+    </style>
+</resources>

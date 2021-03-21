@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Kawa</string>
+    <string name="content_desc_fluid_animation">fluid animation</string>
+    <string name="content_desc_splash_image">splash image</string>
+    <string name="content_desc_splash_logo">splash logo</string>
+    <string name="content_desc_koan_image">Koan image</string>
+    <string name="letter_d">D</string>
+
+
+    <!--Navigation Items-->
+    <string name="nav_item_now">now</string>
+    <string name="nav_item_theme">theme</string>
+    <string name="nav_item_image_info">image info</string>
+    <string name="nav_item_share">share</string>
+    <string name="nav_item_download_image">download Image</string>
+    <string name="nav_item_set_as_wallpaper">set as wallpaper</string>
+    <string name="nav_item_all_koans">all koans</string>
+    <string name="nav_item_search">search</string>
+    <string name="nav_item_about">about</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_search">search</string>
+    <string name="content_desc_list_type">toggle result style between list and square</string>
+    <string name="content_desc_clear_search">clear search content</string>
+    <string name="content_desc_open_koan">open koan</string>
+    <string name="this_app_is_dedicated_to_krishna">this app is dedicated to krishna</string>
+    <string name="krishna_in_japanese">クリシュナ</string>
+    <string name="share"><u>share</u></string>
+    <string name="rate"><u>rate</u></string>
+    <string name="donate"><u>donate</u></string>
+    <string name="content_desc_flute">flute</string>
+
+
+</resources>
