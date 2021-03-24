@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="koanImage"
+            type="com.arupakaman.kawa.model.KoanImage" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.koans.img.info.KoanImageInfoFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            app:layout_constraintGuide_begin="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            app:layout_constraintGuide_end="@dimen/_20sdp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/imgKoan"
+            imageResource="@{koanImage.imgResId}"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_desc_koan_image"
+            android:layout_marginTop="@dimen/_15sdp"
+            tools:src="@drawable/img_koan1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constrainedHeight="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtArtName"
+            android:fontFamily="@font/sawarabi_mincho_regular"
+            tools:text="A Calm Sea"
+            android:text="@{koanImage.artName}"
+            android:textAppearance="@style/headline6"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintTop_toBottomOf="@+id/imgKoan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtArtistName"
+            htmlString="@{@string/artist_name(koanImage.artistName)}"
+            tools:text="Simon de Vlieger"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toBottomOf="@+id/txtArtName"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

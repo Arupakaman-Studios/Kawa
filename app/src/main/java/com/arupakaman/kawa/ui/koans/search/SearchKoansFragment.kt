@@ -87,7 +87,7 @@ class SearchKoansFragment : Fragment() {
         }
     }
 
-    private val koanClickListener = KoanClickListener{
-        SearchKoansFragmentDirections.actionSearchKoansFragmentToKoanDetailFragment(it)
+    private val koanClickListener = KoanClickListener{view,koan->
+        SearchKoansFragmentDirections.actionSearchKoansFragmentToKoanDetailFragment(koan)
     }
 }

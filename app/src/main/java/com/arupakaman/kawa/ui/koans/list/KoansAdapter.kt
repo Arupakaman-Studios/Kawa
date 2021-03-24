@@ -1,6 +1,7 @@
 package com.arupakaman.kawa.ui.koans.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -47,6 +48,6 @@ class KoansAdapter(private val koanClickListener:KoanClickListener) : ListAdapte
     }
 }
 
-class KoanClickListener(val clickListener:(koan:Koan)->Unit){
-    fun onClick(koan: Koan) = clickListener(koan)
+class KoanClickListener(val clickListener:(view: View, koan:Koan)->Unit){
+    fun onClick(view: View, koan: Koan) = clickListener(view, koan)
 }

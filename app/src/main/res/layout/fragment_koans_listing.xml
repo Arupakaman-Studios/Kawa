@@ -16,6 +16,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvKoans"
+        android:transitionGroup="true"
         android:clipToPadding="false"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingTop="@dimen/_10sdp"

@@ -5,11 +5,17 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import com.arupakaman.kawa.R
 import com.arupakaman.kawa.databinding.FragmentKoansListingBinding
 import com.arupakaman.kawa.ui.koans.detail.KoanDetailFragmentArgs
+import com.arupakaman.kawa.utils.motions.navigateToContainerTransform
+import com.arupakaman.kawa.utils.motions.postponeEnterTrans
+import com.google.android.material.transition.MaterialElevationScale
 
 class KoansListingFragment : Fragment() {
 
@@ -21,17 +27,23 @@ class KoansListingFragment : Fragment() {
         return mBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(root: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(root, savedInstanceState)
 
         mBinding.run {
             lifecycleOwner = viewLifecycleOwner
             viewModel = koansListingViewModel
 
-            rvKoans.adapter=KoansAdapter(KoanClickListener {
-                view.findNavController().navigate(KoansListingFragmentDirections.actionKoansListingFragmentToKoanDetailFragment(it))
+            rvKoans.adapter=KoansAdapter(KoanClickListener {itemView,koan->
+
+                val direction = KoansListingFragmentDirections.actionKoansListingFragmentToKoanDetailFragment(koan)
+                navigateToContainerTransform(root,itemView,R.string.transition_koan_detail,direction)
+
             })
         }
+
+
+        postponeEnterTrans()
     }
 
 }

@@ -6,6 +6,7 @@
             type="com.arupakaman.kawa.database.entities.Koan" />
     </data>
     <LinearLayout
+        android:transitionName="@string/transition_koan_detail"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,15 +36,17 @@
 
                 <ImageView
                     android:id="@+id/imgKoan"
+                    android:adjustViewBounds="true"
+                    imageResource="@{koan.koanImage.imgResId}"
                     android:contentDescription="@string/content_desc_koan_image"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/koan1"
+                    tools:src="@drawable/img_koan1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guidelineStart"
                     app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constrainedHeight="true"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_170sdp"/>
+                    android:layout_height="wrap_content"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtKoanTitle"
@@ -51,7 +54,7 @@
                     tools:text="if you love, love openly"
                     android:text="@{koan.title}"
                     android:textAppearance="@style/headline6"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     app:layout_constraintStart_toStartOf="@+id/guidelineStart"
                     app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
                     app:layout_constraintTop_toBottomOf="@+id/imgKoan"

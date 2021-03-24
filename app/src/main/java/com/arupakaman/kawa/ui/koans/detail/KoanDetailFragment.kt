@@ -6,10 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.arupakaman.kawa.databinding.FragmentKoanDetailBinding
+import com.arupakaman.kawa.ui.koans.img.info.KoanImageInfoFragment
+import com.arupakaman.kawa.utils.motions.setupSharedElementTransitionToContainerTransform
 
 class KoanDetailFragment : Fragment() {
 
     private val binding by lazy { FragmentKoanDetailBinding.inflate(layoutInflater) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setupSharedElementTransitionToContainerTransform()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -22,6 +29,8 @@ class KoanDetailFragment : Fragment() {
 
         val koan = KoanDetailFragmentArgs.fromBundle(requireArguments()).koan
         binding.koan=koan
+
+        KoanImageInfoFragment.currentKoanImage=koan.koanImage
 
 
         /*context?.let {ctx->

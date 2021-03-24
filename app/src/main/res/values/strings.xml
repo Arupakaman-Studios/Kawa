@@ -30,5 +30,10 @@
     <string name="donate"><u>donate</u></string>
     <string name="content_desc_flute">flute</string>
 
+    <string name="artist_name">by %1s</string>
+
+
+    <string name="transition_koan_item">koan_item_%1$s</string>
+    <string name="transition_koan_detail">koan_detail</string>
 
 </resources>

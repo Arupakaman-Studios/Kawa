@@ -3,8 +3,10 @@ package com.arupakaman.kawa.database.entities
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.arupakaman.kawa.database.*
+import com.arupakaman.kawa.model.KoanImage
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -22,6 +24,9 @@ data class Koan(
     var koan:String="",
 
     @ColumnInfo(name = KOAN_IMAGE)
-    var koanImagePath:String=""
+    var koanImagePath:String="",
+
+    @Ignore
+    val koanImage:KoanImage = KoanImage.getRandomKoanImage()
 
 ): Parcelable
