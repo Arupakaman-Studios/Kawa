@@ -36,4 +36,8 @@
     <string name="transition_koan_item">koan_item_%1$s</string>
     <string name="transition_koan_detail">koan_detail</string>
 
+    <string name="dismiss">Dismiss</string>
+    <string name="success_set_wallpaper">Wallpaper has been set successfully</string>
+    <string name="failure_set_wallpaper">Some error occurred while setting the wallpaper</string>
+
 </resources>
