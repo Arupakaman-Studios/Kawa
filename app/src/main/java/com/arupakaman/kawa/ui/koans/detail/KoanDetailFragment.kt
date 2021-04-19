@@ -4,17 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.arupakaman.kawa.KoansGenerator
-import com.arupakaman.kawa.data.database.KoansDatabase
 import com.arupakaman.kawa.databinding.FragmentKoanDetailBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 import com.arupakaman.kawa.utils.getDimenFromSize
 import com.arupakaman.kawa.utils.motions.setupSharedElementTransitionToContainerTransform
-import kotlin.random.Random
 
 class KoanDetailFragment : Fragment() {
 
@@ -27,7 +22,7 @@ class KoanDetailFragment : Fragment() {
         setupSharedElementTransitionToContainerTransform()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,19 +58,19 @@ class KoanDetailFragment : Fragment() {
             })
         }*/
 
-        KoansGenerator(requireContext()).prepareJsonArray()
+        //KoansGenerator(requireContext()).prepareJsonArray()
 
         //prepareJsonArray()
     }
 
     private fun setObserver(){
-        koansActivitySharedViewModel.liveKoanTextSize.observe(viewLifecycleOwner, Observer {
+        koansActivitySharedViewModel.liveKoanTextSize.observe(viewLifecycleOwner, {
             context?.getDimenFromSize(it)?.let {textSizeInDimen->
                 binding.txtKoan.textSize=textSizeInDimen
             }
         })
 
-        koansActivitySharedViewModel.liveKoanTypeFace.observe(viewLifecycleOwner, Observer {
+        koansActivitySharedViewModel.liveKoanTypeFace.observe(viewLifecycleOwner, {
             binding.txtKoan.typeface = it
         })
     }

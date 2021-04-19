@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.R
@@ -24,14 +23,14 @@ const val ADAPTER_TYPE_LIST=2
 
 class SearchKoansFragment : Fragment() {
 
-    var adapterType = ADAPTER_TYPE_LIST
+    private var adapterType = ADAPTER_TYPE_LIST
 
     var start= 0L
 
     private val mBinding by lazy {FragmentSearchKoansBinding.inflate(layoutInflater)}
     private val searchKoansViewModel by lazy { ViewModelProvider(this).get(SearchKoansViewModel::class.java) }
 
-    var fragmentCreated = false
+    private var fragmentCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

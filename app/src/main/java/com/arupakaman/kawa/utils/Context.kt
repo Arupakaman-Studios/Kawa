@@ -61,6 +61,7 @@ fun Context.isNightMode(): Boolean {
     return false
 }
 
+@Suppress("unused")
 fun Context.getColorFromAttribute(@AttrRes attrRes:Int):Int{
     val typedValue = TypedValue()
     val theme: Resources.Theme = theme
@@ -210,6 +211,7 @@ suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes res
  * @param message notification text
  *
  */
+@Suppress("DEPRECATION")
 fun Context.showNotification(intent: Intent, title: String, message: String)
 {
     val notificationManager=applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

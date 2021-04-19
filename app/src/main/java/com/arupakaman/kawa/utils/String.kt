@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.arupakaman.kawa.utils
 
 import androidx.core.text.HtmlCompat

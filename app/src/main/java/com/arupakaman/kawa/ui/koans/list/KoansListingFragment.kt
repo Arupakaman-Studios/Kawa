@@ -13,7 +13,7 @@ import com.arupakaman.kawa.utils.motions.postponeEnterTrans
 
 class KoansListingFragment : Fragment() {
 
-    var fragmentCreated = false
+    private var fragmentCreated = false
 
     private val mBinding by lazy { FragmentKoansListingBinding.inflate(layoutInflater) }
     private val koansListingViewModel by lazy { ViewModelProvider(this).get(KoansListingViewModel::class.java) }
@@ -23,7 +23,7 @@ class KoansListingFragment : Fragment() {
         fragmentCreated=true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         return mBinding.root
     }

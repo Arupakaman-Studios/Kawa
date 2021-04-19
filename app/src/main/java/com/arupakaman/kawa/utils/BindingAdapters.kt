@@ -1,13 +1,10 @@
 package com.arupakaman.kawa.utils
 
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.text.HtmlCompat
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arupakaman.kawa.R
@@ -54,9 +51,10 @@ fun ImageView.imageResource(@DrawableRes imgResource:Int)
     Glide.with(this).load(imgResource).into(this)
 }
 
+/*
 @BindingAdapter("koanNoResult")
 fun LinearLayout.setKoanResult(noKoans: Boolean){
     Log.d("setKoanResult","noKoans: $noKoans")
     visibility = if (noKoans) View.VISIBLE else View.GONE
     Log.d("setKoanResult","isVisible: $isVisible")
-}
+}*/

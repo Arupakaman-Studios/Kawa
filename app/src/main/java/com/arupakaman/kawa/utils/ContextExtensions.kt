@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package com.arupakaman.kawa.utils
 
 import android.annotation.SuppressLint

@@ -155,10 +155,10 @@ class KoansActivity : AppCompatActivity() {
         }
 
 
-        fun setDrawerMode(drawerMode:Int, @DrawableRes navigationIcon:Int){
+        /*fun setDrawerMode(drawerMode:Int, @DrawableRes navigationIcon:Int){
             mBinding.drawerLayout.setDrawerLockMode(drawerMode)
             mBinding.partialToolbar.toolbar.setNavigationIcon(navigationIcon)
-        }
+        }*/
 
         addOnDestinationChangedListener { _, destination, arguments ->
 

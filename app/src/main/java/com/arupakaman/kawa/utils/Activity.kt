@@ -12,7 +12,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.arupakaman.kawa.R
 
 fun Activity.hideKeyboard(fragView: View?=null){
@@ -29,6 +28,7 @@ fun Activity.hideKeyboard(fragView: View?=null){
     view?.clearFocus()
 }
 
+@Suppress("DEPRECATION")
 fun AppCompatActivity.makeItFullScreenStatusBarHidden(){
     supportActionBar?.hide()
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -38,6 +38,7 @@ fun AppCompatActivity.makeItFullScreenStatusBarHidden(){
     }
 }
 
+@Suppress("DEPRECATION")
 fun Drawable.setColorFilter(color: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)

@@ -1,6 +1,7 @@
 package com.arupakaman.kawa
 
 import android.content.Context
+import android.util.Log
 import com.arupakaman.kawa.data.database.entities.Koan
 import org.json.JSONArray
 import org.json.JSONObject
@@ -13,6 +14,8 @@ class KoansGenerator(val context: Context) {
 
     fun prepareJsonArray(){
         val arrKoans= getArrayList()
+
+        Log.d("arrKoans, size:",arrKoans.size.toString())
 
         JSONArray().apply {
             arrKoans.forEach {koan->

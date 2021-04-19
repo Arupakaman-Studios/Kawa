@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.arupakaman.kawa.utils
 
 import android.animation.Animator
@@ -21,6 +23,7 @@ import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.hypot
 
 
 class MyDialog(context: Context) : Dialog(context) {
@@ -155,7 +158,7 @@ fun AppCompatActivity.showChangeThemeDialog(koansActivitySharedViewModel: KoansA
         revealShow(binding.root, true, null)
     }
 
-    dialog.setOnKeyListener(DialogInterface.OnKeyListener { dialogInterface, i, keyEvent ->
+    dialog.setOnKeyListener(DialogInterface.OnKeyListener { _, i, _ ->
         if (i == KeyEvent.KEYCODE_BACK) {
             revealShow(binding.root, false, dialog)
             return@OnKeyListener true
@@ -189,7 +192,7 @@ fun AppCompatActivity.updateTheme(mode: Int){
 private fun revealShow(view: View, b: Boolean, dialog: Dialog?) {
     val w = view.width
     val h = view.height
-    val endRadius = Math.hypot(w.toDouble(), h.toDouble()).toInt()
+    val endRadius = hypot(w.toDouble(), h.toDouble()).toInt()
     val cx = (view.x + view.width / 2).toInt()
     val cy: Int = (view.y + view.height / 2).toInt() //view.y.toInt() + view.height + 56
     if (b) {

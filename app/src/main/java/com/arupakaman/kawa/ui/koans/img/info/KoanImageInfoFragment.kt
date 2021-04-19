@@ -17,7 +17,7 @@ class KoanImageInfoFragment : Fragment() {
 
     val binding by lazy { FragmentKoanImageInfoBinding.inflate(layoutInflater) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         return binding.root
     }
