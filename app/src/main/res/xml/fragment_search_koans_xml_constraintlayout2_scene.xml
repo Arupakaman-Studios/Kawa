@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:autoTransition="animateToEnd"
+        motion:duration="@integer/reply_motion_duration_large">
+       <KeyFrameSet>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/linSearch"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:scaleX="0" />
+        <Constraint
+            android:id="@+id/dividerSearch"
+            motion:layout_constraintEnd_toEndOf="@+id/linSearch"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            motion:layout_constraintTop_toBottomOf="@+id/linSearch"
+            motion:layout_constraintStart_toStartOf="@+id/linSearch"
+            android:scaleX="0" />
+
+        <Constraint android:id="@id/linNoKoans">
+            <PropertySet
+                app:applyMotionScene="false"
+                app:visibilityMode="ignore" />
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end"
+        motion:deriveConstraintsFrom="@id/start">
+
+        <Constraint
+            android:id="@+id/linSearch"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:scaleX="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+        <Constraint
+            android:id="@+id/dividerSearch"
+            motion:layout_constraintEnd_toEndOf="@+id/linSearch"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            motion:layout_constraintTop_toBottomOf="@+id/linSearch"
+            motion:layout_constraintStart_toStartOf="@+id/linSearch"
+            android:scaleX="1" />
+    </ConstraintSet>
+</MotionScene>

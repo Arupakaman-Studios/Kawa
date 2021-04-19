@@ -1,13 +1,21 @@
 package com.arupakaman.kawa.ui.splash
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.arupakaman.kawa.R
+import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.ui.koans.KoansActivity
 import com.arupakaman.kawa.utils.makeItFullScreenStatusBarHidden
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +26,20 @@ class SplashActivity : AppCompatActivity() {
 
         setFluidAnimation()
 
+        MediaPlayerManager.init(applicationContext,this)
+
+        lifecycleScope.launch(Dispatchers.Default){
+            delay(2500)
+            KoansDatabase.getKoanDao(applicationContext).getFirstKoan()
+            withContext(Dispatchers.Main){
+                finish()
+                val intent = Intent(applicationContext,KoansActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
-    fun setFluidAnimation(){
+    private fun setFluidAnimation(){
         val topLeftAnimationForward =
                 AnimatedVectorDrawableCompat.create(this,
                     R.drawable.top_left_liquid_forward

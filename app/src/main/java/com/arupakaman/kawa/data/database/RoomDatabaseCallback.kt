@@ -1,4 +1,4 @@
-package com.arupakaman.kawa.database
+package com.arupakaman.kawa.data.database
 
 import android.content.Context
 import android.content.res.Resources
@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.arupakaman.kawa.R
-import com.arupakaman.kawa.database.entities.Koan
+import com.arupakaman.kawa.data.database.entities.Koan
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,6 +25,8 @@ class RoomDatabaseCallback(private val context: Context) : RoomDatabase.Callback
             Log.d("RoomDatabaseCallback","list size: ${list.size}")
             KoansDatabase.getInstance(context).koanDao.insertAll(list)
             Log.d("RoomDatabaseCallback","all koans inserted")
+
+            db.execSQL("CREATE VIRTUAL TABLE IF NOT EXISTS koans_fts USING FTS4(koan)")
 
             db.execSQL("INSERT INTO koans_fts(koans_fts) VALUES('rebuild')")
         }

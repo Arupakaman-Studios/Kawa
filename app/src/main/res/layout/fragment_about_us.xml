@@ -1,77 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.koans.about.AboutUsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dedicatedTo"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:gravity="center"
-        android:text="@string/this_app_is_dedicated_to_krishna"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayoutAbout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_about_us_xml_motionlayoutabout_scene"
+        tools:context=".ui.koans.about.AboutUsFragment">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtKrishna"
-        android:fontFamily="@font/satsuki_gendai_mincho"
-        android:gravity="center"
-        android:text="@string/krishna_in_japanese"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintTop_toBottomOf="@+id/dedicatedTo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dedicatedTo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:gravity="center"
+            android:text="@string/this_app_is_dedicated_to_krishna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:src="@drawable/ic_flute"
-        android:adjustViewBounds="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtKrishna"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_15sdp"
-        app:tint="?colorBorder"
-        android:contentDescription="@string/content_desc_flute" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtKrishna"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/satsuki_gendai_mincho"
+            android:gravity="center"
+            android:text="@string/krishna_in_japanese"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dedicatedTo" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtDonate"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginBottom="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@+id/txtShare"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/donate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/content_desc_flute"
+            android:src="@drawable/ic_flute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtKrishna"
+            app:tint="?colorBorder" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtShare"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintEnd_toStartOf="@+id/txtRate"
-        android:layout_marginBottom="@dimen/_30sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtDonate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/donate"
+            app:layout_constraintBottom_toTopOf="@+id/txtShare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtRate"
-        android:background="?attr/selectableItemBackground"
-        android:layout_marginStart="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtShare"
-        app:layout_constraintStart_toEndOf="@+id/txtShare"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_70sdp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txtRate"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/rate"
+            app:layout_constraintBottom_toBottomOf="@+id/txtShare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtShare" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

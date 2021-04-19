@@ -83,7 +83,7 @@ fun Fragment.postponeEnterTrans() {
 fun Fragment.setupSharedElementTransitionToContainerTransform(){
     sharedElementEnterTransition = MaterialContainerTransform().apply {
         drawingViewId = R.id.navHostFragment
-        duration = context?.resources?.getInteger(R.integer.reply_motion_duration_large)?.toLong()?:500L
+        duration = context?.resources?.getInteger(R.integer.reply_motion_duration_large)?.toLong()?:300L
         scrimColor = Color.TRANSPARENT
         setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
     }

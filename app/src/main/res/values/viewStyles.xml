@@ -13,5 +13,26 @@
         <item name="fontFamily">@font/libre_baskerville_regular</item>
     </style>
 
+    <style name="defaultEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@font/libre_baskerville_regular</item>
+        <item name="android:textColor">?editTextColor</item>
+    </style>
 
+
+
+    <style name="Theme.Kawa.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/scale_up</item>
+        <item name="android:windowExitAnimation">@anim/scale_down</item>
+    </style>
 </resources>

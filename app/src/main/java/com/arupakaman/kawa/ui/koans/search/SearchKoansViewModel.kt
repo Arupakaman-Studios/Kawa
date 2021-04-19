@@ -1,15 +1,17 @@
 package com.arupakaman.kawa.ui.koans.search
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
-import com.arupakaman.kawa.database.KoansDatabase
-import com.arupakaman.kawa.database.entities.Koan
+import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.model.HighlightedKoans
+import com.arupakaman.kawa.utils.isNightMode
 import com.arupakaman.kawa.utils.sanitizeSearchQuery
 import com.arupakaman.kawa.utils.toHighlightedText
+import com.arupakaman.kawa.utils.toPlainText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SearchKoansViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -29,13 +31,18 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
 
     val liveKoansHighlightedList = MediatorLiveData<List<HighlightedKoans>>()
 
+    private val _liveKoanNoResult = MutableLiveData<Boolean>()
+    val liveKoanNoResult : LiveData<Boolean>
+        get() = _liveKoanNoResult
+
     init {
 
 
         liveKoansCard.addSource(liveSearchQuery) { (searchQuery, adapterType) ->
             if (adapterType == ADAPTER_TYPE_CARD) {
-                val koans = koanDao.searchKoansByTitle(searchQuery.sanitizeSearchQuery())
+                val koans = koanDao.searchKoansByTitle(searchQuery)
                 liveKoansCard.addSource(koans){
+                    _liveKoanNoResult.value= searchQuery.isNotEmpty() && it.isEmpty()
                     liveKoansCard.value=it
                 }
             }
@@ -51,9 +58,13 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
                 liveKoansHighlightedList.addSource(koans) { koansList ->
 
                     viewModelScope.launch(Dispatchers.Default) {
+                        val highlightColor = if (application.isNightMode()) "#FFFFFF" else "#000000"
                         val listOfHighlightedKoans = koansList.map { koan ->
-                            HighlightedKoans(koan, koan.getHighlightedString(searchQuery))
+                            val highlightedKoan = koan.getHighlightedString(searchQuery,highlightColor)
+                            Log.d("highlighted query",highlightedKoan)
+                            HighlightedKoans(koan, highlightedKoan)
                         }
+                        _liveKoanNoResult.postValue(searchQuery.isNotEmpty() && listOfHighlightedKoans.isEmpty())
 
                         liveKoansHighlightedList.postValue(listOfHighlightedKoans)
                     }
@@ -64,17 +75,44 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
 
     }
 
-    private fun Koan.getHighlightedString(searchQuery: String): String {
-        val index = koan.indexOf(searchQuery)
+    private fun Koan.getHighlightedString(searchQuery: String, highlightColor:String): String {
+        val plainKoan = koan.toPlainText()
+        val index = plainKoan.indexOf(searchQuery,ignoreCase = true)
 
-        val trimmedKoan = if (index - 10 >= 0) koan.substring(index - 10) else koan
-        return trimmedKoan.toHighlightedText(searchQuery)
+        Log.d("index",index.toString())
+
+        var indexOfPrevWord = if (index==-1) 0 else index
+        if (indexOfPrevWord!=0)
+            indexOfPrevWord--
+        if (indexOfPrevWord>0)
+        {
+            while (indexOfPrevWord>0)
+            {
+                indexOfPrevWord--
+                if (plainKoan[indexOfPrevWord]==' ')
+                {
+                    if (index-indexOfPrevWord<10)
+                        continue
+                    else
+                        break
+                }
+                else if (indexOfPrevWord==0)
+                    break
+
+            }
+        }
+
+        Log.d("indexOfPrevWord",indexOfPrevWord.toString())
+        Log.d("plainKoan",plainKoan)
+
+        val trimmedKoan = if (indexOfPrevWord==0) plainKoan else "...${plainKoan.substring(indexOfPrevWord)}"//if (index - 10 >= 0) koan.substring(index - 10) else koan
+        return trimmedKoan.toHighlightedText(searchQuery, highlightColor)
 
     }
 
 
     fun searchKoans(searchQuery: String, adapterType: Int) {
-        liveSearchQuery.postValue(Pair(searchQuery, adapterType))
+        liveSearchQuery.postValue(Pair(searchQuery.trim(), adapterType))
     }
 
     /* Like Query
@@ -82,6 +120,8 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
     daibai: 24 ms
     joshu: 24 ms
     buddha: 23ms
+
+
 
      021-03-21 10:49:24.912 3846-3846/com.arupakaman.kawa D/likeQuery: cup: 32ms
      2021-03-21 10:49:24.912 3846-3846/com.arupakaman.kawa D/likeQuery: resultSize: 4
@@ -154,7 +194,7 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
  */
 
     /*
-    withFts:
+   withFts:
     cup : 4ms-5ms
     daibai : 4ms-5ms
     joshu: 5ms-9ms

@@ -33,4 +33,25 @@
 
     <color name="colorKoanBgLight">#ECECEC</color>
     <color name="colorKoanBgDark">#1A1A1A</color>
+
+    <color name="colorButtonNormalLight">#000000</color>
+    <color name="colorButtonNormalDark">#FFFFFF</color>
+
+    <color name="colorIconTintLight">#FFFFFF</color>
+    <color name="colorIconTintDark">#000000</color>
+
+    <color name="colorBgLight">#FFFFFF</color>
+    <color name="colorBgDark">#333333</color>
+    <color name="colorRedSun">#F68081</color>
+    <color name="colorTwilight">#F4EED7</color>
+    <color name="colorNight">#1d1f2f</color>
+
+    <color name="colorTextSecondaryLight">#808080</color>
+    <color name="colorTextSecondaryDark">#D9CAC9C9</color>
+
+    <color name="editTextColorLight">#474747</color>
+    <color name="editTextColorDark">#A9A9A9</color>
+
+    <color name="colorPrimaryLight">#888888</color>
+    <color name="colorPrimaryDark">#111111</color>
 </resources>

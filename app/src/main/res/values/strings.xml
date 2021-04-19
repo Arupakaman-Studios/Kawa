@@ -39,5 +39,25 @@
     <string name="dismiss">Dismiss</string>
     <string name="success_set_wallpaper">Wallpaper has been set successfully</string>
     <string name="failure_set_wallpaper">Some error occurred while setting the wallpaper</string>
+    <string name="font_name_sans_serif">sans-serif</string>
+    <string name="font_name_bi_mincho">bi mincho</string>
+    <string name="font_name_serif">serif</string>
+    <string name="font_size_preview">Aa</string>
+    <string name="request_for_storage_permission">Please grant the storage permission to download the image</string>
 
+    <string name="download_app_to_read_complete_koan">To read the complete koan, download the Kawa application from here:
+    \nhttps://play.google.com/store/apps/details?id=%1$s</string>
+
+    <string name="download_app_to_read_more_koan">To read the more koans, download the Kawa application from here:
+    \nhttps://play.google.com/store/apps/details?id=%1$s</string>
+
+    <!--Share App-->
+    <string name="title_share_via">Share via :</string>
+    <string name="msg_share_app">Kawa contains 101 zen koans(riddle, story), download and start reading it now:
+        \nhttps://play.google.com/store/apps/details?id=%1$s</string>
+    <string name="err_no_app_can_share_it">Couldn\'t find any app that can share data</string>
+
+    <string name="donate_version_pkg_name">com.arupakaman.kawa.donate</string>
+    <string name="no_koans_found">No koans found</string>
+    <string name="what_you_seek_is_seeking_you">What you seek is seeking you…</string>
 </resources>

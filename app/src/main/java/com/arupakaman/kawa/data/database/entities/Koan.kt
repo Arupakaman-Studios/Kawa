@@ -1,11 +1,11 @@
-package com.arupakaman.kawa.database.entities
+package com.arupakaman.kawa.data.database.entities
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.arupakaman.kawa.database.*
+import com.arupakaman.kawa.data.database.*
 import com.arupakaman.kawa.model.KoanImage
 import kotlinx.parcelize.Parcelize
 

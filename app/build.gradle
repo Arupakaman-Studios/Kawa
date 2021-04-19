@@ -39,6 +39,24 @@ android {
     sourceSets {
         getByName("main").java.srcDirs("build/generated/source/navigation-args")
     }
+
+    flavorDimensions 'variant'
+
+    productFlavors {
+        googlePlayAd {
+            buildConfigField "boolean", "isFDroid", "false"
+            dimension 'variant'
+        }
+        googlePlayPaid {
+            buildConfigField "boolean", "isFDroid", "false"
+            dimension 'variant'
+            applicationIdSuffix '.donate'
+        }
+        fDroid {
+            buildConfigField "boolean", "isFDroid", "true"
+            dimension 'variant'
+        }
+    }
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.arupakaman.kawa.database
+package com.arupakaman.kawa.data.database
 
 
 const val TABLE_KOAN="Koan"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/itemNow"
+        android:title="@string/nav_item_now"/>
+
+    <item android:id="@+id/itemTheme"
+        android:title="@string/nav_item_theme"/>
+
+    <item android:id="@+id/itemAllKoans"
+        android:title="@string/nav_item_all_koans"/>
+
+    <item android:id="@+id/itemSearch"
+        android:title="@string/nav_item_search"/>
+
+    <item android:id="@+id/itemAbout"
+        android:title="@string/nav_item_about"/>
+
+</menu>

@@ -35,8 +35,9 @@ import android.widget.TextView
         mTextView.text = spannableString
     }
 
-    fun String.toHighlightedText(textToHighlight: String): String {
+    fun String.toHighlightedText(textToHighlight: String, highlightColor:String): String {
         //String oldString = mTextView.getText().toString();
-        return replace(textToHighlight.toRegex(), "<font color='black'>$textToHighlight</font>")
+
+        return replace(textToHighlight, "<font color='$highlightColor'>$textToHighlight</font>", ignoreCase = true) //black
         //mTextView.setText(Html.fromHtml(newString));
     }

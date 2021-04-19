@@ -5,20 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.databinding.FragmentKoanImageInfoBinding
-import com.arupakaman.kawa.model.KoanImage
+import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 
 class KoanImageInfoFragment : Fragment() {
 
-    companion object{
-        var currentKoanImage : KoanImage?=null
-    }
+    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(
+        KoansActivitySharedViewModel::class.java) }
+
 
     val binding by lazy { FragmentKoanImageInfoBinding.inflate(layoutInflater) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -27,6 +24,9 @@ class KoanImageInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.koanImage= currentKoanImage
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.koansActivitySharedViewModel=koansActivitySharedViewModel
+
     }
 }

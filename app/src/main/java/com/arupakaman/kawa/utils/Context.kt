@@ -1,52 +1,114 @@
 package com.arupakaman.kawa.utils
 
 import android.app.*
+import android.content.ActivityNotFoundException
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
+import android.util.TypedValue
+import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import com.arupakaman.kawa.BuildConfig
 import com.arupakaman.kawa.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlin.random.Random
 import kotlin.Result as Result1
 
+fun Context.isNightMode(): Boolean {
+    val defaultNightMode = AppCompatDelegate.getDefaultNightMode()
+    if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+        return true
+    }
+    if (defaultNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
+        return false
+    }
+    val currentNightMode = (resources.configuration.uiMode
+            and Configuration.UI_MODE_NIGHT_MASK)
+    when (currentNightMode) {
+        Configuration.UI_MODE_NIGHT_NO -> return false
+        Configuration.UI_MODE_NIGHT_YES -> return true
+        Configuration.UI_MODE_NIGHT_UNDEFINED -> return false
+    }
+    return false
+}
 
+fun Context.getColorFromAttribute(@AttrRes attrRes:Int):Int{
+    val typedValue = TypedValue()
+    val theme: Resources.Theme = theme
+    theme.resolveAttribute(attrRes, typedValue, true)
+    return typedValue.data
+}
+
+fun Context.openAppSettings(){
+    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val uri = Uri.fromParts("package", packageName, null)
+    intent.data = uri
+    startActivity(intent)
+}
+
+/**
+ * Set the given drawable resource as wallpaper
+ *
+ * @param imgRes : drawable resource to set as wallpaper
+ * @return true if succeed and false for failure
+ */
 suspend fun Context.setResourceAsWallpaper(@DrawableRes imgRes: Int): Boolean = withContext(
     Dispatchers.Default
 ) {
         val wallpaperManager = WallpaperManager.getInstance(this@setResourceAsWallpaper)
 
         val result = kotlin.runCatching {
-            val bitmap = BitmapFactory.decodeResource(resources, imgRes)
+            val bitmap = getBitmapOfResourceViaGlide(imgRes)
             wallpaperManager.setBitmap(bitmap)
             true
         }
 
-        Log.e("setWallpaper: %s", result.exceptionOrNull().toString())
+        result.printResult("setWallpaper")
+
         return@withContext result.getOrNull() ?: false
     }
 
+
+/**
+ * save the given drawable resource into Pictures/kawa directory via scoped storage
+ *
+ * @param fileName: name of the file to be saved
+ * @param resourceId: drawable resource to be saved as file
+ *
+ * @return Uri of the saved file
+ */
 @RequiresApi(Build.VERSION_CODES.Q)
-suspend fun Context.savePhotoViaScopedStorage(fileName: String, @DrawableRes resourceId: Int): Uri? = withContext(
+suspend fun Context.savePhotoViaScopedStorage(fileName: String, @DrawableRes resourceId: Int): Pair<Uri?,String>? = withContext(
     Dispatchers.IO
 ){
 
@@ -59,7 +121,8 @@ suspend fun Context.savePhotoViaScopedStorage(fileName: String, @DrawableRes res
         val extension = "jpeg"//Utils.getImageExtension(format)
         //3
 
-        val bitmap = BitmapFactory.decodeResource(resources, resourceId)
+        //val bitmap = BitmapFactory.decodeResource(resources, resourceId)
+        val bitmap = getBitmapOfResourceViaGlide(resourceId)
 
         val newImage = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, "$fileName.$extension")
@@ -71,7 +134,7 @@ suspend fun Context.savePhotoViaScopedStorage(fileName: String, @DrawableRes res
             put(MediaStore.MediaColumns.HEIGHT, bitmap.height)
             //4
             put(MediaStore.MediaColumns.RELATIVE_PATH, "$dirDest${File.separator}")
-            //5
+            //set is pending when writing data so other apps can't use this file at this time
             put(MediaStore.Images.Media.IS_PENDING, 1)
         }
         val newImageUri = contentResolver.insert(collection, newImage)
@@ -80,23 +143,39 @@ suspend fun Context.savePhotoViaScopedStorage(fileName: String, @DrawableRes res
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
         }
         newImage.clear()
-        //7
+        //once writing is done reset the value
         newImage.put(MediaStore.Images.Media.IS_PENDING, 0)
         //8
         contentResolver.update(newImageUri, newImage, null, null)
 
-        newImageUri
+        val filePath = getFullPathFromContentUri(this@savePhotoViaScopedStorage,newImageUri)?:""
+        Log.d("newImageUri filePath", filePath)
+
+
+        Pair(newImageUri,filePath)
     }
     result.printResult("savePhotoViaScopedStorage")
     return@withContext result.getOrNull()
 }
 
+
+/**
+ * save the given drawable resource into Pictures/kawa directory via legacy storage
+ *
+ * @param fileName: name of the file to be saved
+ * @param resourceId: drawable resource to be saved as file
+ *
+ * @return Uri of the saved file
+ */
 @Suppress("DEPRECATION")
-suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes resourceId: Int):Uri? = withContext(
+@RequiresPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes resourceId: Int):Pair<Uri?,String>? = withContext(
     Dispatchers.IO
 ){
     val result = kotlin.runCatching {
-        val bm = BitmapFactory.decodeResource(resources, resourceId)
+        //val bm = BitmapFactory.decodeResource(resources, resourceId)
+
+        val bm = getBitmapOfResourceViaGlide(resourceId)
 
         val directoryPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+File.separator+ getString(
             R.string.app_name
@@ -116,22 +195,26 @@ suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes res
         outStream.flush()
         outStream.close()
 
-        file.getImageContentUri(this@savePhotoViaLegacyStorage)
+        Pair(file.getImageContentUri(this@savePhotoViaLegacyStorage),file.path)
     }
     result.printResult("savePhotoViaLegacyStorage")
 
     return@withContext result.getOrNull()
 }
 
-
-fun Context.showNotification(intent: Intent, title: String, message: String, type: String)
+/**
+ * Fire a notification for the given title and message
+ *
+ * @param intent this intent will be used as pending intent
+ * @param title notification title
+ * @param message notification text
+ *
+ */
+fun Context.showNotification(intent: Intent, title: String, message: String)
 {
     val notificationManager=applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val  notificationBuilder: NotificationCompat.Builder
 
-    /*val intent = Intent(applicationContext, HomeActivity::class.java)
-    intent.putExtra(StaticKeysClass.COMING_FROM,StaticKeysClass.COMING_FROM_NOTIFICATION)
-    intent.putExtra(StaticKeysClass.PUSH_NOTIFICATION_TYPE, type)*/
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
@@ -140,7 +223,7 @@ fun Context.showNotification(intent: Intent, title: String, message: String, typ
         PendingIntent.FLAG_ONE_SHOT
     )
 
-    if (Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.O)
+    if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O)
     {
         notificationBuilder= NotificationCompat.Builder(applicationContext, title)
         val notificationChannel= NotificationChannel(
@@ -162,6 +245,7 @@ fun Context.showNotification(intent: Intent, title: String, message: String, typ
     else
     {
         notificationBuilder= NotificationCompat.Builder(applicationContext)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
     }
 
     val textStyle= NotificationCompat.BigTextStyle()
@@ -175,14 +259,21 @@ fun Context.showNotification(intent: Intent, title: String, message: String, typ
         .setAutoCancel(true)
         .setColor(Color.parseColor("#FF5D3E"))
         .setSmallIcon(R.drawable.ic_logo)
-        .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+
 
     notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
 }
 
 
-
-
+/**
+ * shares text and image with other apps.
+ *
+ * <p> Saves the bitmap in cache directory and share it's content uri with other apps, via file provider {@link R.xml#fileprovider}
+ *
+ * @param bitmap file as bitmap which need to be shared
+ * @param text content need to be shared
+ *
+ */
 fun Context.shareData(bitmap: Bitmap, text:String) {
     // save bitmap to cache directory
     try {
@@ -203,16 +294,6 @@ fun Context.shareData(bitmap: Bitmap, text:String) {
     )
     if (contentUri != null) {
 
-        /*val intent: Intent = ShareCompat.IntentBuilder.from(this)
-            .setType("image/jpg")
-            .setSubject(getString(R.string.share_subject))
-            .setStream(contentUri)
-            .setChooserTitle(R.string.share_title)
-            .createChooserIntent()
-            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-        startActivity(intent)*/
-
         val shareIntent = Intent()
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // temp permission for receiving app to read this file
@@ -224,7 +305,22 @@ fun Context.shareData(bitmap: Bitmap, text:String) {
     }
 }
 
+suspend fun Context.getBitmapOfResourceViaGlide(imageResource:Int):Bitmap = suspendCoroutine{cont->
+    Glide.with(this@getBitmapOfResourceViaGlide)
+        .asBitmap()
+        .load(imageResource)
+        .into(object : CustomTarget<Bitmap>(){
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                cont.resume(resource)
+            }
+            override fun onLoadCleared(placeholder: Drawable?) {
+            }
+        })
+}
 
+/**
+ * Just prints the success or failure of Kotlin Result
+ */
 fun Result1<*>.printResult(tag: String) {
     if (isSuccess)
         Log.d(tag, "success, ${this.getOrNull()}")
@@ -233,3 +329,52 @@ fun Result1<*>.printResult(tag: String) {
 
 }
 
+
+
+/**
+ * Share this App
+ */
+fun Activity.shareApp() {
+    ShareCompat.IntentBuilder.from(this).run {
+        setText(getString(R.string.msg_share_app,BuildConfig.APPLICATION_ID))
+        setSubject(getString(R.string.app_name))
+        setChooserTitle(R.string.title_share_via)
+        setType("text/plain")
+        intent
+    }.also {shareIntent->
+        fireSafeIntent(shareIntent,getString(R.string.err_no_app_can_share_it))
+    }
+}
+
+
+/**
+ * Redirect to paid version of app
+ */
+fun Context.openDonationVersion(){
+    openAppInPlayStore(getString(R.string.donate_version_pkg_name))
+}
+
+/**
+ * Will open play store page of any application whose id is given as parameter
+ */
+fun Context.openAppInPlayStore(id: String){
+    kotlin.runCatching {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$id"))
+        startActivity(intent)
+    }.onFailure {
+        val optionalIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$id"))
+        startActivity(optionalIntent)
+    }
+}
+
+
+/**
+ * Fire the intent and show error message in toast
+ */
+fun Context.fireSafeIntent(intent: Intent,failureMessage:String){
+    try {
+        startActivity(intent)
+    } catch (ex: ActivityNotFoundException) {
+        Toast.makeText(this, failureMessage, Toast.LENGTH_LONG).show()
+    }
+}

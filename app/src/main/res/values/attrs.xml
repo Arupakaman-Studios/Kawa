@@ -9,4 +9,12 @@
     <attr name="colorItemUnselected" format="reference"/>
 
     <attr name="colorItemSelected" format="reference"/>
+
+    <attr name="colorBg" format="reference"/>
+    
+    <!--<attr name="colorButtonNormal" format="reference"/>-->
+
+    <attr name="colorIconTint" format="reference"/>
+
+    <attr name="colorTextSecondary" format="reference"/>
 </resources>

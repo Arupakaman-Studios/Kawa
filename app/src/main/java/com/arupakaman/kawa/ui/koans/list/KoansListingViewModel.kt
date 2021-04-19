@@ -2,7 +2,7 @@ package com.arupakaman.kawa.ui.koans.list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.arupakaman.kawa.database.KoansDatabase
+import com.arupakaman.kawa.data.database.KoansDatabase
 
 class KoansListingViewModel(application: Application) : AndroidViewModel(application) {
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/itemTheme"
+        android:title="@string/nav_item_theme"/>
+
+    <item android:id="@+id/itemImageInfo"
+        android:title="@string/nav_item_image_info"/>
+
+    <item android:id="@+id/itemShare"
+        android:title="@string/nav_item_share"/>
+
+    <item android:id="@+id/itemDownloadImage"
+        android:title="@string/nav_item_download_image"/>
+
+    <item android:id="@+id/itemSetAsWallpaper"
+        android:title="@string/nav_item_set_as_wallpaper"/>
+
+</menu>

@@ -1,73 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="viewModel"
             type="com.arupakaman.kawa.ui.koans.search.SearchKoansViewModel" />
+
+        <import type="android.view.View"/>
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.koans.search.SearchKoansFragment">
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_search_koans_xml_constraintlayout2_scene"
+        tools:context=".ui.koans.search.SearchKoansFragment">
 
-    <LinearLayout
-        android:id="@+id/linSearch"
-        android:layout_marginTop="@dimen/_25sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/etSearch"
-            android:hint="@string/hint_search"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:background="@android:color/transparent"
-            android:layout_weight="1"
+        <LinearLayout
+            android:id="@+id/linSearch"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:importantForAutofill="no"
-            android:inputType="text" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imgListType"
-            android:background="@drawable/ripple_circular"
-            android:padding="@dimen/_12sdp"
-            android:src="@drawable/ic_square"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:contentDescription="@string/content_desc_list_type" />
+            <EditText
+                android:id="@+id/etSearch"
+                android:textCursorDrawable="@drawable/et_cursor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:ellipsize="end"
+                android:hint="@string/hint_search"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_10sdp" />
 
-        <ImageView
-            android:id="@+id/imgClearSearch"
-            android:background="@drawable/ripple_circular"
-            android:padding="@dimen/_12sdp"
-            android:src="@drawable/ic_circle_solid"
-            android:layout_width="@dimen/_36sdp"
-            android:layout_height="@dimen/_36sdp"
-            android:contentDescription="@string/content_desc_clear_search" />
+            <ImageView
+                android:id="@+id/imgListType"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:background="@drawable/ripple_circular"
+                android:contentDescription="@string/content_desc_list_type"
+                android:padding="@dimen/_12sdp"
+                android:src="@drawable/ic_square"
+                app:tint="?colorBorder" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imgClearSearch"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:background="@drawable/ripple_circular"
+                android:contentDescription="@string/content_desc_clear_search"
+                android:padding="@dimen/_12sdp"
+                android:src="@drawable/ic_circle_solid"
+                app:tint="?colorBorder" />
 
-    <View
-        android:id="@+id/dividerSearch"
-        android:background="?colorBorder"
-        app:layout_constraintTop_toBottomOf="@+id/linSearch"
-        app:layout_constraintStart_toStartOf="@+id/linSearch"
-        app:layout_constraintEnd_toEndOf="@+id/linSearch"
-        android:layout_width="0dp"
-        android:layout_height="1dp"/>
+        </LinearLayout>
 
-    <!--<TextView
+        <View
+            android:id="@+id/dividerSearch"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?colorBorder"
+            app:layout_constraintEnd_toEndOf="@+id/linSearch"
+            app:layout_constraintStart_toStartOf="@+id/linSearch"
+            app:layout_constraintTop_toBottomOf="@+id/linSearch" />
+
+        <!--<TextView
         android:id="@+id/txtKoanTest"
         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         android:layout_margin="@dimen/_10sdp"
@@ -77,22 +83,55 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvKoans"
-        listData="@{viewModel.liveKoansHighlightedList}"
-        cardData="@{viewModel.liveKoansCard}"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_koan_list"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/dividerSearch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvKoans"
+            cardData="@{viewModel.liveKoansCard}"
+            listData="@{viewModel.liveKoansHighlightedList}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:orientation="vertical"
+            android:transitionGroup="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerSearch"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_koan_list" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--android:visibility="@{viewModel.liveKoanNoResult ? View.VISIBLE : View.GONE, default=gone}"-->
+        <LinearLayout
+            android:id="@+id/linNoKoans"
+            android:visibility="@{viewModel.liveKoanNoResult ? View.VISIBLE : View.GONE, default=gone}"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dividerSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:src="@drawable/ic_sailing"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:tint="?colorBorder"
+                android:contentDescription="@string/no_koans_found" />
+
+            <TextView
+                android:layout_marginTop="@dimen/_3sdp"
+                android:gravity="center"
+                android:text="@string/what_you_seek_is_seeking_you"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

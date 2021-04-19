@@ -2,14 +2,55 @@ package com.arupakaman.kawa.utils
 
 import android.app.Activity
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.EditText
+import androidx.annotation.AnimRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.abs
 
-fun RecyclerView.addOnScrollListenerToHideKeyboard(act: Activity, fragmentView: View?=null){
+const val KEYBOARD_SHOWN=1
+const val KEYBOARD_HIDDEN=2
 
+fun RecyclerView.addOnScrollListenerToHideKeyboard(act: Activity, fragmentView: View?=null, editText: EditText){
+
+    val linearLayoutManager = if (layoutManager is LinearLayoutManager) layoutManager as LinearLayoutManager else null
+    var lastState = 0
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            if (dy > 0)
+
+            if (abs(dy)<10)
+            {
+                return
+            }
+
+            if (dy > 0) {
                 act.hideKeyboard(fragmentView)
+                lastState = KEYBOARD_HIDDEN
+            }
+            else{
+                if(linearLayoutManager?.findFirstCompletelyVisibleItemPosition()==0)
+                {
+                    if (lastState!=KEYBOARD_SHOWN)
+                    {
+                        editText.showKeyboard()
+                        lastState = KEYBOARD_SHOWN
+                    }
+
+                }
+            }
         }
     })
+}
+
+
+fun RecyclerView.applyAnimation(@AnimRes animRes:Int){
+    if (tag!="1") {
+        tag = "1"
+        val controller =
+            AnimationUtils.loadLayoutAnimation(context, animRes)
+        layoutAnimation = controller
+        scheduleLayoutAnimation()
+    }
+
 }

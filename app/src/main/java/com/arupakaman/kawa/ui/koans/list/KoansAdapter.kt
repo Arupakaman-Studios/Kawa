@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.arupakaman.kawa.database.entities.Koan
+import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.databinding.ItemKoanBinding
 
 class KoansAdapter(private val koanClickListener:KoanClickListener) : ListAdapter<Koan, KoansAdapter.ViewHolder>(DiffUtilCallback) {
@@ -21,7 +21,7 @@ class KoansAdapter(private val koanClickListener:KoanClickListener) : ListAdapte
         }
     }
 
-    class ViewHolder private constructor(private val binding: ItemKoanBinding,koanClickListener:KoanClickListener) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(private val binding: ItemKoanBinding, koanClickListener:KoanClickListener) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.koanClickListener=koanClickListener

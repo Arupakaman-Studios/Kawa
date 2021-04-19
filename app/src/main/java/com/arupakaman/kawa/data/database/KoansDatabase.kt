@@ -1,13 +1,13 @@
-package com.arupakaman.kawa.database
+package com.arupakaman.kawa.data.database
 
 import android.content.Context
 import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.arupakaman.kawa.database.dao.KoanDao
-import com.arupakaman.kawa.database.entities.Koan
-import com.arupakaman.kawa.database.entities.KoanFts
+import com.arupakaman.kawa.data.database.dao.KoanDao
+import com.arupakaman.kawa.data.database.entities.Koan
+import com.arupakaman.kawa.data.database.entities.KoanFts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

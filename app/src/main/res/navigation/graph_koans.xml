@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/graph_koans"
-    app:startDestination="@id/itemAllKoans">
+    app:startDestination="@id/itemNow">
 
     <fragment
         android:id="@+id/itemAllKoans"
@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_koans_listing" >
         <action
             android:id="@+id/action_koansListingFragment_to_koanDetailFragment"
-            app:destination="@id/koanDetailFragment" />
+            app:destination="@id/itemNow" />
     </fragment>
     <fragment
         android:id="@+id/itemSearch"
@@ -21,16 +21,16 @@
         tools:layout="@layout/fragment_search_koans" >
         <action
             android:id="@+id/action_searchKoansFragment_to_koanDetailFragment"
-            app:destination="@id/koanDetailFragment" />
+            app:destination="@id/itemNow" />
     </fragment>
     <fragment
-        android:id="@+id/koanDetailFragment"
+        android:id="@+id/itemNow"
         android:name="com.arupakaman.kawa.ui.koans.detail.KoanDetailFragment"
         android:label="fragment_koan_detail"
         tools:layout="@layout/fragment_koan_detail" >
         <argument
             android:name="koan"
-            app:argType="com.arupakaman.kawa.database.entities.Koan" />
+            app:argType="com.arupakaman.kawa.data.database.entities.Koan" />
     </fragment>
     <fragment
         android:id="@+id/itemAbout"

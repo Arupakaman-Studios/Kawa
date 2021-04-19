@@ -3,7 +3,7 @@
     <data>
         <variable
             name="koan"
-            type="com.arupakaman.kawa.database.entities.Koan" />
+            type="com.arupakaman.kawa.data.database.entities.Koan" />
         <variable
             name="koanClickListener"
             type="com.arupakaman.kawa.ui.koans.list.KoanClickListener" />

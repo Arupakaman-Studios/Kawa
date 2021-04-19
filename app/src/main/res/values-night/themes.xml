@@ -2,18 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.Kawa" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/colorLayoutBackgroundDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+       <!-- <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>-->
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <item name="android:windowBackground">@color/colorLayoutBackgroundDark</item>
         <item name="android:colorBackground">@color/colorLayoutBackgroundDark</item>
+
+        <item name="editTextColor">@color/editTextColorDark</item>
 
         <!-- Custom colors -->
         <item name="colorImageFrameBackground">@color/colorFrameDark</item>
@@ -21,8 +24,15 @@
         <item name="colorKoanBg">@color/colorKoanBgDark</item>
         <item name="colorItemSelected">@color/colorItemSelectedDark</item>
         <item name="colorItemUnselected">@color/colorItemUnselectedDark</item>
+        <item name="colorBg">@color/colorBgDark</item>
+
+        <item name="colorButtonNormal">@color/colorButtonNormalDark</item>
+        <item name="colorIconTint">@color/colorIconTintDark</item>
+
+        <item name="colorTextSecondary">@color/colorTextSecondaryDark</item>
 
         <item name="textAppearanceHeadline6">@style/headline6</item>
         <item name="android:textViewStyle">@style/defaultTextViewStyle</item>
+        <item name="editTextStyle">@style/defaultEditTextStyle</item>
     </style>
 </resources>

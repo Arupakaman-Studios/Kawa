@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<com.google.android.material.appbar.AppBarLayout android:id="@+id/appBar"
+<com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appBar"
     android:elevation="0dp"
     app:elevation="0dp"
     android:layout_width="match_parent"
@@ -11,6 +12,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
         android:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

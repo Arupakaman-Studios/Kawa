@@ -11,13 +11,19 @@
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:onClick="@{(view)->koanClickListener.onClick(view,highlightedKoan.koan)}"
-    android:padding="@dimen/_5sdp"
+    android:transitionName="@{@string/transition_koan_item(highlightedKoan.koan.id)}"
+    android:paddingVertical="@dimen/_7sdp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--htmlString="&lt;p&gt;if you really &lt;font color='black'&gt;love&lt;/font&gt; me so much&lt;/p&gt;"-->
     <TextView
         android:maxLines="1"
         android:ellipsize="end"
+        android:textColor="?colorTextSecondary"
         htmlString="@{highlightedKoan.highlightedString}"
         tools:text="...if you really love me so much..."
         android:layout_width="match_parent"
