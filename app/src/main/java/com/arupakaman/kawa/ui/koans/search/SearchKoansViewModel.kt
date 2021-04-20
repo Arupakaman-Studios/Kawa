@@ -105,7 +105,10 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
         Log.d("indexOfPrevWord",indexOfPrevWord.toString())
         Log.d("plainKoan",plainKoan)
 
-        val trimmedKoan = if (indexOfPrevWord==0) plainKoan else "...${plainKoan.substring(indexOfPrevWord)}"//if (index - 10 >= 0) koan.substring(index - 10) else koan
+        val trimmedKoan= if (indexOfPrevWord==0)
+            if (plainKoan.length>=indexOfPrevWord+50) plainKoan.substring(0,indexOfPrevWord+50) else plainKoan
+        else
+            if(plainKoan.length>=indexOfPrevWord+50) "...${plainKoan.substring(indexOfPrevWord, indexOfPrevWord+50)}" else "...${plainKoan.substring(indexOfPrevWord)}"//if (index - 10 >= 0) koan.substring(index - 10) else koan
         return trimmedKoan.toHighlightedText(searchQuery, highlightColor)
 
     }

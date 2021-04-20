@@ -51,6 +51,7 @@ class SearchKoansFragment : Fragment() {
 
         mBinding.observeViewModel()
 
+        mBinding.rvKoans.setHasFixedSize(true)
         if (fragmentCreated)
             mBinding.setupListenersAndAdapter(view)
         else

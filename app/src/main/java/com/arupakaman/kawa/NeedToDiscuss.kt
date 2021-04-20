@@ -17,4 +17,8 @@ no it is for search query to trigger but we can use it for clear
 
 5. In search result there may be chances that the result matched with title and koans, what we will do in that case?
 In case of card UI we need to search with title and in case of list with koan
+
+- In search when type japan it shows search result but when type japane, it doesn't show anything
+- system default dark mode enable on app start
+- image changes when getting back to the now screen
  */

@@ -13,6 +13,10 @@ import com.arupakaman.kawa.model.HighlightedKoans
 import com.arupakaman.kawa.ui.koans.list.KoansAdapter
 import com.arupakaman.kawa.ui.koans.search.KoansListAdapter
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @BindingAdapter("cardData")
@@ -40,9 +44,12 @@ fun RecyclerView.bindSearchResult(list: List<HighlightedKoans>?){
 
 @BindingAdapter("htmlString")
 fun TextView.setHtmlString(string: String?){
-    if (string==null)
-        return
-    text = HtmlCompat.fromHtml(string,HtmlCompat.FROM_HTML_MODE_LEGACY)
+    GlobalScope.launch(Dispatchers.Main) {
+        if (string==null)
+            return@launch
+
+        text = withContext(Dispatchers.Default){ HtmlCompat.fromHtml(string,HtmlCompat.FROM_HTML_MODE_LEGACY) }
+    }
 }
 
 @BindingAdapter("imageResource")
