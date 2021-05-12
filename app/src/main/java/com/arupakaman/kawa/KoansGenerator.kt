@@ -17,12 +17,14 @@ class KoansGenerator(val context: Context) {
 
         Log.d("arrKoans, size:",arrKoans.size.toString())
 
+        Log.d("arrKoans set, size:",arrKoans.toSet().size.toString())
+
         JSONArray().apply {
             arrKoans.forEach {koan->
                 JSONObject().apply {
                     put("title",koan.title)
                     put("koan",koan.koan)
-                    put("image",koan.koanImagePath)
+                 //   put("image",koan.koanImagePath)
                 }.also {
                     put(it)
                 }
@@ -71,7 +73,7 @@ class KoansGenerator(val context: Context) {
 
                    <h2>&nbsp;</h2>
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
 
@@ -121,7 +123,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
                                                 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -146,7 +148,7 @@ class KoansGenerator(val context: Context) {
                 <h2>&nbsp;</h2>
 
             """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -175,7 +177,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -190,7 +192,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
                     
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -213,7 +215,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -231,7 +233,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
                                         
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -254,7 +256,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -271,7 +273,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -318,7 +320,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -354,7 +356,7 @@ class KoansGenerator(val context: Context) {
 
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -375,7 +377,7 @@ class KoansGenerator(val context: Context) {
                     <p>At once the Happy Chinaman swung the sack over his shoulder and continued on his way.</p>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -396,7 +398,26 @@ class KoansGenerator(val context: Context) {
                     <p>&quot;A Buddha,&quot; answered Tanzan.</p>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
+        }
+
+        addNewKoan {
+            title="Muddy Road"
+            koan="""
+                <p>Tanzan and Ekido were once traveling together down a muddy road. A heavy rain was still falling.</p>
+
+                <p>Coming around a bend, they met a lovely girl in a silk kimono and sash, unable to cross the intersection.</p>
+
+                <p>&quot;Come on, girl&quot; said Tanzan at once. Lifting her in his arms, he carried her over the mud.</p>
+
+                <p>Ekido did not speak again until that night when they reached a lodging temple. Then he no longer could restrain himself. &quot;We monks don&#39;t go near females,&quot; he told Tanzan, &quot;especially not young and lovely ones. It is dangerous. Why did you do that?&quot;</p>
+
+                <p>&quot;I left the girl there,&quot; said Tanzan. &quot;Are you still carrying her?&quot;</p>
+
+                <h2>&nbsp;</h2>
+
+            """.trimIndent()
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -430,7 +451,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -453,7 +474,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -496,7 +517,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -511,7 +532,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -536,7 +557,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -553,7 +574,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -598,7 +619,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -625,7 +646,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -646,7 +667,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -663,7 +684,7 @@ class KoansGenerator(val context: Context) {
                     <p>&quot;That is a fine teaching,&quot; concluded the farmer, &quot;but please make one exception. I have a neighbor who is rough and mean to me. Just exclude him from all those sentient beings.&quot;</p>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -682,7 +703,7 @@ class KoansGenerator(val context: Context) {
                     <p>On the second day the pupil was enlightened.</p>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -715,7 +736,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -730,7 +751,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -753,7 +774,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -774,7 +795,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -793,7 +814,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -812,7 +833,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -830,7 +851,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -857,7 +878,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -878,7 +899,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -893,7 +914,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -912,7 +933,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -933,7 +954,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -963,7 +984,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -982,7 +1003,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -995,7 +1016,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1018,7 +1039,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1039,7 +1060,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1062,7 +1083,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1085,7 +1106,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1104,7 +1125,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1125,7 +1146,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1166,7 +1187,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1183,7 +1204,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1200,7 +1221,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1239,7 +1260,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1258,7 +1279,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1271,7 +1292,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1298,7 +1319,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1323,7 +1344,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1348,7 +1369,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1365,7 +1386,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1390,7 +1411,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1411,7 +1432,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1430,7 +1451,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1461,7 +1482,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1486,7 +1507,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1505,7 +1526,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1518,7 +1539,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1533,7 +1554,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1564,7 +1585,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1583,7 +1604,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1606,7 +1627,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1625,7 +1646,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1640,7 +1661,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1659,7 +1680,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1680,7 +1701,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1697,7 +1718,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1716,7 +1737,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1733,7 +1754,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1754,7 +1775,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1771,7 +1792,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1808,7 +1829,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1827,7 +1848,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1850,7 +1871,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1869,7 +1890,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1892,7 +1913,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1909,7 +1930,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1928,7 +1949,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1947,7 +1968,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1964,7 +1985,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -1985,7 +2006,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2000,7 +2021,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2018,7 +2039,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2051,7 +2072,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2070,7 +2091,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2113,7 +2134,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2128,7 +2149,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2151,7 +2172,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2170,7 +2191,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2185,7 +2206,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2202,7 +2223,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2223,7 +2244,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2244,7 +2265,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2261,7 +2282,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2278,7 +2299,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2289,7 +2310,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2302,7 +2323,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2315,7 +2336,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2328,7 +2349,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2341,7 +2362,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2358,7 +2379,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2371,7 +2392,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2388,7 +2409,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2403,7 +2424,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2416,7 +2437,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2427,7 +2448,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2438,7 +2459,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2451,7 +2472,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2464,7 +2485,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2475,7 +2496,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2488,7 +2509,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2501,7 +2522,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2516,7 +2537,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2527,7 +2548,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2540,7 +2561,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2551,7 +2572,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2564,7 +2585,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2586,7 +2607,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2617,7 +2638,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2659,7 +2680,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2681,7 +2702,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2699,7 +2720,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2719,7 +2740,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2739,7 +2760,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2765,7 +2786,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2783,7 +2804,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2807,7 +2828,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2839,7 +2860,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2867,7 +2888,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2893,7 +2914,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2919,7 +2940,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2961,7 +2982,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -2981,7 +3002,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3015,7 +3036,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3037,7 +3058,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3067,7 +3088,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3087,7 +3108,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3105,7 +3126,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3129,7 +3150,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3163,7 +3184,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3185,7 +3206,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3209,7 +3230,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3229,7 +3250,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3253,7 +3274,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3289,7 +3310,7 @@ class KoansGenerator(val context: Context) {
                     But he was blind after all.</em></p>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3311,7 +3332,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3333,7 +3354,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
 
         addNewKoan {
@@ -3355,7 +3376,7 @@ class KoansGenerator(val context: Context) {
                     <h2>&nbsp;</h2>
 
                 """.trimIndent()
-            koanImagePath=""
+            //koanImagePath=""
         }
         return arrKoans
     }

@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.utils.themeColor
 import com.google.android.material.transition.MaterialContainerTransform
@@ -47,7 +47,6 @@ import com.google.android.material.transition.MaterialElevationScale
  * Step 4: call this method to navigate from listing screen to detail screen
  */
 fun Fragment.navigateToContainerTransform(
-    rootView: View,
     itemView: View,
     @StringRes detailTransitionId: Int,
     directions: NavDirections
@@ -63,7 +62,7 @@ fun Fragment.navigateToContainerTransform(
     val extras = FragmentNavigatorExtras(itemView to detailTransition)
     //val direction = KoansListingFragmentDirections.actionKoansListingFragmentToKoanDetailFragment(koan)
 
-    rootView.findNavController().navigate(directions, extras)
+    findNavController().navigate(directions, extras)
 }
 
 /**

@@ -138,20 +138,24 @@ fun AppCompatActivity.showChangeThemeDialog(koansActivitySharedViewModel: KoansA
             }
         }
 
-        viewDay.onClick {
-            //ThemeRevealer.newThemeSelected(this@showChangeThemeDialog, viewDay.x.roundToInt(),viewDay.y.roundToInt(),false)
-            updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
-
+        viewDay.combineClick(viewNight){
+            if (dialog.isShowing)
+                dialog.dismiss()
+            when (it){
+                viewDay-> updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                viewNight-> updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
+            }
         }
+        /*viewDay.onClick {
+            //ThemeRevealer.newThemeSelected(this@showChangeThemeDialog, viewDay.x.roundToInt(),viewDay.y.roundToInt(),false)
 
-        /*viewTwilight.onClick {
-
+            updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
         }*/
 
-        viewNight.onClick {
+        /*viewNight.onClick {
             //ThemeRevealer.newThemeSelected(this@showChangeThemeDialog, viewNight.x.roundToInt(),viewNight.y.roundToInt(),true)
             updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+        }*/
     }
 
     dialog.setOnShowListener {
@@ -183,10 +187,10 @@ fun Context.getDimenFromSize(size: Int): Float {
 }
 
 fun AppCompatActivity.updateTheme(mode: Int){
-    /*AppCompatDelegate.setDefaultNightMode(mode)
-    delegate.applyDayNight()*/
+    AppCompatDelegate.setDefaultNightMode(mode)
+    delegate.applyDayNight()
     MyAppPref.themeMode=mode
-    recreate()
+    //recreate()
 }
 
 private fun revealShow(view: View, b: Boolean, dialog: Dialog?) {

@@ -1,5 +1,6 @@
 package com.arupakaman.kawa.ui.splash
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -24,11 +25,14 @@ class SplashActivity : AppCompatActivity() {
 
         makeItFullScreenStatusBarHidden()
 
-        setFluidAnimation()
 
-        MediaPlayerManager.init(applicationContext,this)
+
+        //MediaPlayerManager.init(applicationContext,this)
 
         lifecycleScope.launch(Dispatchers.Default){
+
+            setFluidAnimation(applicationContext)
+
             delay(2500)
             KoansDatabase.getKoanDao(applicationContext).getFirstKoan()
             withContext(Dispatchers.Main){
@@ -39,22 +43,22 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun setFluidAnimation(){
+    private suspend fun setFluidAnimation(context: Context) = withContext(Dispatchers.Default){
         val topLeftAnimationForward =
-                AnimatedVectorDrawableCompat.create(this,
+                AnimatedVectorDrawableCompat.create(context,
                     R.drawable.top_left_liquid_forward
                 )
         val topLeftAnimationReverse =
-                AnimatedVectorDrawableCompat.create(this,
+                AnimatedVectorDrawableCompat.create(context,
                     R.drawable.top_left_liquid_reverse
                 )
 
         val bottomRightAnimationForward =
-                AnimatedVectorDrawableCompat.create(this,
+                AnimatedVectorDrawableCompat.create(context,
                     R.drawable.bottom_right_liquid_forward
                 )
         val bottomRightAnimationReverse =
-                AnimatedVectorDrawableCompat.create(this,
+                AnimatedVectorDrawableCompat.create(context,
                     R.drawable.bottom_right_liquid_reverse
                 )
 
@@ -97,7 +101,9 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
-        topLeftAnimationForward?.start()
-        bottomRightAnimationForward?.start()
+        withContext(Dispatchers.Main){
+            topLeftAnimationForward?.start()
+            bottomRightAnimationForward?.start()
+        }
     }
 }

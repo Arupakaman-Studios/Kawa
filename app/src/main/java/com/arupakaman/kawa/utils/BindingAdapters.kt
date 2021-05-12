@@ -7,10 +7,13 @@ import androidx.annotation.DrawableRes
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.model.HighlightedKoans
+import com.arupakaman.kawa.ui.koans.detail.adapter.KoanDetailAdapter
 import com.arupakaman.kawa.ui.koans.list.KoansAdapter
+import com.arupakaman.kawa.ui.koans.list.ad.KoansAdapterWithAd
 import com.arupakaman.kawa.ui.koans.search.KoansListAdapter
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +26,23 @@ import kotlinx.coroutines.withContext
 fun RecyclerView.bindRecyclerView(list: List<Koan>?){
     list?.let {
         Log.d("bindRecyclerView",list.size.toString())
-        if (adapter is KoansAdapter)
-            (adapter as KoansAdapter).submitList(list)
+        if (adapter is KoansAdapter?) {
+            (adapter as KoansAdapter?)?.submitList(list)
 
-        applyAnimation(R.anim.layout_animation_slide_from_bottom)
+            applyAnimation(R.anim.layout_animation_slide_from_bottom)
+        }
+    }
+}
+
+@BindingAdapter("cardDataWithAd")
+fun RecyclerView.bindCardWithAdRecyclerView(list: List<Any>?){
+    list?.let {
+        Log.d("bindRecyclerView",list.size.toString())
+        if (adapter is KoansAdapterWithAd?) {
+            (adapter as KoansAdapterWithAd?)?.submitList(list)
+
+            applyAnimation(R.anim.layout_animation_slide_from_bottom)
+        }
     }
 }
 
@@ -35,10 +51,19 @@ fun RecyclerView.bindRecyclerView(list: List<Koan>?){
 fun RecyclerView.bindSearchResult(list: List<HighlightedKoans>?){
     list?.let {
         Log.d("bindRecyclerView",list.size.toString())
-        if (adapter is KoansListAdapter)
-            (adapter as KoansListAdapter).submitList(list)
+        if (adapter is KoansListAdapter?) {
+            (adapter as KoansListAdapter?)?.submitList(list)
 
-        applyAnimation(R.anim.layout_animation_slide_from_bottom)
+            applyAnimation(R.anim.layout_animation_slide_from_bottom)
+        }
+    }
+}
+
+@BindingAdapter("koansData")
+fun ViewPager2.bindKoanDetailAdapter(list: List<Any>?){
+    list?.let {
+        adapter= KoanDetailAdapter(it)
+        Log.d("detail","setAdapterCalled")
     }
 }
 

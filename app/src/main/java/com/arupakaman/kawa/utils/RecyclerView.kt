@@ -12,31 +12,36 @@ import kotlin.math.abs
 const val KEYBOARD_SHOWN=1
 const val KEYBOARD_HIDDEN=2
 
-fun RecyclerView.addOnScrollListenerToHideKeyboard(act: Activity, fragmentView: View?=null, editText: EditText){
+fun RecyclerView.addOnScrollListenerToKeyboardHandling(act: Activity, fragmentView: View?=null, editText: EditText,showKeyboard:Boolean){
 
     val linearLayoutManager = if (layoutManager is LinearLayoutManager) layoutManager as LinearLayoutManager else null
     var lastState = 0
     addOnScrollListener(object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-            if (abs(dy)<10)
-            {
-                return
+            if (showKeyboard){
+                if (abs(dy)<10)
+                {
+                    return
+                }
             }
+
 
             if (dy > 0) {
                 act.hideKeyboard(fragmentView)
                 lastState = KEYBOARD_HIDDEN
             }
             else{
-                if(linearLayoutManager?.findFirstCompletelyVisibleItemPosition()==0)
-                {
-                    if (lastState!=KEYBOARD_SHOWN)
+                if (showKeyboard){
+                    if(linearLayoutManager?.findFirstCompletelyVisibleItemPosition()==0)
                     {
-                        editText.showKeyboard()
-                        lastState = KEYBOARD_SHOWN
-                    }
+                        if (lastState!=KEYBOARD_SHOWN)
+                        {
+                            editText.showKeyboard()
+                            lastState = KEYBOARD_SHOWN
+                        }
 
+                    }
                 }
             }
         }

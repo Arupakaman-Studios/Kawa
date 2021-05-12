@@ -29,6 +29,7 @@ class KoansAdapter(private val koanClickListener:KoanClickListener) : ListAdapte
 
         fun bind(koan: Koan?){
             binding.koan=koan
+            binding.position=bindingAdapterPosition
             binding.executePendingBindings()
         }
 
@@ -48,6 +49,6 @@ class KoansAdapter(private val koanClickListener:KoanClickListener) : ListAdapte
     }
 }
 
-class KoanClickListener(val clickListener:(view: View, koan:Koan)->Unit){
-    fun onClick(view: View, koan: Koan) = clickListener(view, koan)
+class KoanClickListener(val clickListener:(view: View, position:Int, koan:Koan)->Unit){
+    fun onClick(view: View, position:Int, koan: Koan) = clickListener(view, position, koan)
 }

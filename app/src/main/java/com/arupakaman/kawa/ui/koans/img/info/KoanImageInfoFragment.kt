@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.databinding.FragmentKoanImageInfoBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
+import com.flavours.AdManager
 
 class KoanImageInfoFragment : Fragment() {
 
@@ -28,5 +29,11 @@ class KoanImageInfoFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.koansActivitySharedViewModel=koansActivitySharedViewModel
 
+        AdManager.showAd(binding.partialAdContainer,AdManager.BANNER_AD_KOAN_IMAGE)
+    }
+
+    override fun onDestroyView() {
+        AdManager.destroyAd(AdManager.BANNER_AD_KOAN_IMAGE)
+        super.onDestroyView()
     }
 }

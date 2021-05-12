@@ -7,6 +7,9 @@
         <variable
             name="koanClickListener"
             type="com.arupakaman.kawa.ui.koans.list.KoanClickListener" />
+        <variable
+            name="position"
+            type="Integer" />
 
     </data>
 
@@ -15,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:transitionName="@{@string/transition_koan_item(koan.id)}"
 
-    android:onClick="@{(view)->koanClickListener.onClick(view,koan)}"
+    android:onClick="@{(view)->koanClickListener.onClick(view,position,koan)}"
     android:background="@drawable/bg_koan"
     android:layout_marginBottom="@dimen/_10sdp"
     android:layout_width="match_parent"

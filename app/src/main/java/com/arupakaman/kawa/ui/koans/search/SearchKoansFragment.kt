@@ -9,26 +9,25 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.databinding.FragmentSearchKoansBinding
+import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 import com.arupakaman.kawa.ui.koans.list.KoanClickListener
 import com.arupakaman.kawa.ui.koans.list.KoansAdapter
-import com.arupakaman.kawa.utils.addOnScrollListenerToHideKeyboard
-import com.arupakaman.kawa.utils.afterTextChangedDebounce
-import com.arupakaman.kawa.utils.hideKeyboard
+import com.arupakaman.kawa.utils.*
 import com.arupakaman.kawa.utils.motions.navigateToContainerTransform
 import com.arupakaman.kawa.utils.motions.postponeEnterTrans
-import com.arupakaman.kawa.utils.onClick
+import com.flavours.AdManager
 
 const val ADAPTER_TYPE_CARD=1
 const val ADAPTER_TYPE_LIST=2
 
 class SearchKoansFragment : Fragment() {
 
-    private var adapterType = ADAPTER_TYPE_LIST
-
-    var start= 0L
+    //private var adapterType = ADAPTER_TYPE_LIST
 
     private val mBinding by lazy {FragmentSearchKoansBinding.inflate(layoutInflater)}
     private val searchKoansViewModel by lazy { ViewModelProvider(this).get(SearchKoansViewModel::class.java) }
+    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(
+        KoansActivitySharedViewModel::class.java) }
 
     private var fragmentCreated = false
 
@@ -36,6 +35,9 @@ class SearchKoansFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d("SearchKoansFragment","onCreate")
         fragmentCreated=true
+
+        mBinding.rvKoans.adapter=null
+        searchKoansViewModel.seAdapterTypeCardIfItWasAlreadySet()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -52,10 +54,13 @@ class SearchKoansFragment : Fragment() {
         mBinding.observeViewModel()
 
         mBinding.rvKoans.setHasFixedSize(true)
-        if (fragmentCreated)
+        if (fragmentCreated) {
             mBinding.setupListenersAndAdapter(view)
+        }
         else
             mBinding.rvKoans.tag = "1"
+
+        setObserver()
 
         /*searchKoansViewModel.liveKoansHighlightedList.observe(viewLifecycleOwner){
             Log.d("SearchKoansFragment: %s",it.size.toString())
@@ -66,6 +71,10 @@ class SearchKoansFragment : Fragment() {
         }*/
 
         postponeEnterTrans()
+
+
+
+        AdManager.showAd(mBinding.partialAdContainer,AdManager.BANNER_AD_KOAN_SEARCH)
     }
 
     private fun FragmentSearchKoansBinding.setupListenersAndAdapter(view: View){
@@ -73,7 +82,7 @@ class SearchKoansFragment : Fragment() {
         setListeners()
 
         rvKoans.adapter = KoansListAdapter(koanClickListener)
-        rvKoans.addOnScrollListenerToHideKeyboard(requireActivity(),view,etSearch)
+        rvKoans.addOnScrollListenerToKeyboardHandling(requireActivity(),view,etSearch,false)
         //HighlightText.highlightColor("dummy text",txtKoanTest)
 
         fragmentCreated=false
@@ -88,8 +97,8 @@ class SearchKoansFragment : Fragment() {
     private fun FragmentSearchKoansBinding.setListeners(){
         etSearch.afterTextChangedDebounce {searchQuery->
             Log.d("searchQuery: %s",searchQuery)
-            start=System.currentTimeMillis()
-            searchKoansViewModel.searchKoans(searchQuery,adapterType)
+
+            searchKoansViewModel.searchKoans(searchQuery)
             rvKoans.tag = ""
         }
 
@@ -100,29 +109,64 @@ class SearchKoansFragment : Fragment() {
 
         imgListType.onClick {
             // toggle the icon and type
-            adapterType = if (adapterType==ADAPTER_TYPE_LIST) {
-                imgListType.setImageResource(R.drawable.ic_list)
-                rvKoans.adapter = KoansAdapter(koanClickListener)
-                ADAPTER_TYPE_CARD
-            } else{
-                imgListType.setImageResource(R.drawable.ic_square)
-                rvKoans.adapter = KoansListAdapter(koanClickListener)
-                ADAPTER_TYPE_LIST
-            }
-
-            searchKoansViewModel.searchKoans(mBinding.etSearch.text.toString(),adapterType)
+            searchKoansViewModel.toggleAdapterType()
         }
     }
 
-    private val koanClickListener = KoanClickListener{itemView,koan->
+    private fun setObserver(){
+        searchKoansViewModel.liveKoansCard.observe(viewLifecycleOwner, {
+            if (searchKoansViewModel.getAdapterType() == ADAPTER_TYPE_CARD)
+                koansActivitySharedViewModel.setKoanListForDetail(it)
+        })
+
+        searchKoansViewModel.liveKoansHighlightedList.observe(viewLifecycleOwner,{
+            if (searchKoansViewModel.getAdapterType() == ADAPTER_TYPE_LIST)
+                koansActivitySharedViewModel.setKoanListForDetailByHighlightedKoan(it)
+        })
+
+        searchKoansViewModel.liveAdapterType.observeAsEvent(viewLifecycleOwner,{adapterType->
+            Log.d("liveAdapterType",adapterType.toString())
+            if (adapterType==ADAPTER_TYPE_CARD) {
+                mBinding.imgListType.setImageResource(R.drawable.ic_list)
+                mBinding.rvKoans.adapter = KoansAdapter(koanClickListener)
+
+                /*searchKoansViewModel.liveKoansHighlightedList.value?.let {
+                    koansActivitySharedViewModel.setKoanListForDetailByHighlightedKoan(it)
+                }*/
+            } else{
+                mBinding.imgListType.setImageResource(R.drawable.ic_square)
+                mBinding.rvKoans.adapter = KoansListAdapter(koanClickListener)
+
+                /*searchKoansViewModel.liveKoansCard.value?.let {
+                    koansActivitySharedViewModel.setKoanListForDetail(it)
+                }*/
+            }
+
+            searchKoansViewModel.searchKoans(mBinding.etSearch.text.toString())
+        })
+    }
+
+    private val koanClickListener = KoanClickListener{itemView,position,koan->
         Log.d("koanClickListener",koan.title)
 
         activity?.hideKeyboard(mBinding.root)
 
-        val direction = SearchKoansFragmentDirections.actionSearchKoansFragmentToKoanDetailFragment(koan)
+        val direction = SearchKoansFragmentDirections.actionSearchKoansFragmentToKoanDetailFragment(position)
         //view.findNavController().navigate(direction)
-        navigateToContainerTransform(mBinding.root,itemView,R.string.transition_koan_detail,direction)
+        navigateToContainerTransform(itemView,R.string.transition_koan_detail,direction)
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("SearchKoansFragment","onDestroy")
+    }
+
+    override fun onDestroyView() {
+        AdManager.destroyAd(AdManager.BANNER_AD_KOAN_SEARCH)
+        super.onDestroyView()
+
+        Log.d("SearchKoansFragment","onDestroyView")
     }
 }

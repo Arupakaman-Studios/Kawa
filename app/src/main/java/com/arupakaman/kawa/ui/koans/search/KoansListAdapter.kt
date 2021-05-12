@@ -38,6 +38,7 @@ class KoansListAdapter(val koanClickListener: KoanClickListener) : ListAdapter<H
 
         fun bind(highlightedKoan: HighlightedKoans?){
             binding.highlightedKoan=highlightedKoan
+            binding.position=bindingAdapterPosition
             binding.executePendingBindings()
         }
 

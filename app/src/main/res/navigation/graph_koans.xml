@@ -28,9 +28,12 @@
         android:name="com.arupakaman.kawa.ui.koans.detail.KoanDetailFragment"
         android:label="fragment_koan_detail"
         tools:layout="@layout/fragment_koan_detail" >
-        <argument
+        <!--<argument
             android:name="koan"
-            app:argType="com.arupakaman.kawa.data.database.entities.Koan" />
+            app:argType="com.arupakaman.kawa.data.database.entities.Koan" />-->
+        <argument
+            android:name="index"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/itemAbout"

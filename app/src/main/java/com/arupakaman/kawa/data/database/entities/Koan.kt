@@ -23,8 +23,8 @@ data class Koan(
     @ColumnInfo(name = KOAN, index = true, collate = ColumnInfo.NOCASE)
     var koan:String="",
 
-    @ColumnInfo(name = KOAN_IMAGE)
-    var koanImagePath:String="",
+    /*@ColumnInfo(name = KOAN_IMAGE)
+    var koanImagePath:String="",*/
 
     @Ignore
     val koanImage:KoanImage = KoanImage.getRandomKoanImage()

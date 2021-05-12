@@ -276,7 +276,7 @@ fun Context.showNotification(intent: Intent, title: String, message: String)
  * @param text content need to be shared
  *
  */
-fun Context.shareData(bitmap: Bitmap, text:String) {
+fun Activity.shareData(bitmap: Bitmap, text:String) {
     // save bitmap to cache directory
     try {
         val cachePath = File(cacheDir, "image")

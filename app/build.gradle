@@ -24,6 +24,25 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            // live
+            resValue "string", "admob_app_id", "ca-app-pub-5907109655869059~6753162682"
+            resValue "string", "ad_banner_koan_detail", "ca-app-pub-5907109655869059/3552284277"
+            resValue "string", "ad_banner_koan_image", "ca-app-pub-5907109655869059/6925387221"
+            resValue "string", "ad_banner_koan_listing", "ca-app-pub-5907109655869059/8837234697"
+            resValue "string", "ad_banner_koan_search", "ca-app-pub-5907109655869059/6949437959"
+            resValue "string", "ad_native", "ca-app-pub-5907109655869059/7116958912"
+
+        }
+        debug{
+
+            // test
+            resValue "string", "admob_app_id", "ca-app-pub-3940256099942544~3347511713"
+            resValue "string", "ad_banner_koan_detail", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_banner_koan_image", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_banner_koan_listing", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_banner_koan_search", "ca-app-pub-3940256099942544/6300978111"
+            resValue "string", "ad_native", "ca-app-pub-3940256099942544/2247696110"
         }
     }
     compileOptions {
@@ -43,11 +62,11 @@ android {
     flavorDimensions 'variant'
 
     productFlavors {
-        googlePlayAd {
+        ad {
             buildConfigField "boolean", "isFDroid", "false"
             dimension 'variant'
         }
-        googlePlayPaid {
+        paid {
             buildConfigField "boolean", "isFDroid", "false"
             dimension 'variant'
             applicationIdSuffix '.donate'
@@ -83,9 +102,9 @@ dependencies {
     //implementation 'androidx.cardview:cardview:1.0.0'
 
     //recycler view
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
 
-    def nav_version = "2.3.4"
+    def nav_version = "2.3.5"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -105,4 +124,10 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
+    adImplementation 'com.google.android.gms:play-services-ads:20.0.0'
+
+    // LeakCanary
+    /*debugImplementation('com.squareup.leakcanary:leakcanary-android:2.5'){
+        because "To track down mermory leaks"
+    }*/
 }

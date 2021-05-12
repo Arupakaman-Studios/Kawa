@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
@@ -13,15 +14,13 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.arupakaman.kawa.BuildConfig
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.KoansDatabase
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.data.pref.MyAppPref
+import com.arupakaman.kawa.model.HighlightedKoans
 import com.arupakaman.kawa.model.KoanImage
 import com.arupakaman.kawa.utils.*
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +53,9 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
     val liveKoanTypeFace : LiveData<Typeface>
         get() = _liveKoanTypeFace
 
+    private val _liveKoanListForDetail by lazy { MediatorLiveData<List<Any>>() }
+    val liveKoanListForDetail : LiveData<List<Any>>
+        get() = _liveKoanListForDetail
 
     init {
         setKoanTextSize(MyAppPref.koanTextSize)
@@ -68,7 +70,24 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
             MyAppPref.TYPEFACE_SANS_SERIF-> setKoanTypeface(Typeface.SANS_SERIF)
         }
 
+        setAllKoansForDetail()
     }
+
+    fun setAllKoansForDetail(){
+        _liveKoanListForDetail.addSource(koanDao.getAllKoans()){
+            _liveKoanListForDetail.postValue(it)
+        }
+    }
+
+    fun setKoanListForDetailByHighlightedKoan(list: List<HighlightedKoans>)=viewModelScope.launch(Dispatchers.Default){
+        _liveKoanListForDetail.postValue(list.map { it.koan })
+    }
+
+    fun setKoanListForDetail(list: List<Any>)=viewModelScope.launch(Dispatchers.Default){
+        _liveKoanListForDetail.postValue(list)
+    }
+
+
 
     fun setKoanTextSize(textSize:Int) = viewModelScope.launch(Dispatchers.Default){
         _liveKoanTextSize.postValue(textSize)
@@ -133,6 +152,9 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
         }
     }
 
+    private val _liveShareData = MutableLiveData<Event<Pair<Bitmap,String>>>()
+    val liveShareData : LiveData<Event<Pair<Bitmap,String>>>
+        get() = _liveShareData
     /**
      * share the koan image and koan text with other apps
      */
@@ -151,7 +173,8 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
             }
             else myApplication.getString(R.string.download_app_to_read_more_koan,BuildConfig.APPLICATION_ID)
 
-            myApplication.shareData(bitmap, "${koan.title}:\n\n${firstParagraph}\n\n\n$trailingShareText")
+            _liveShareData.postValue(Event(Pair(bitmap, "${koan.title}:\n\n${firstParagraph}\n\n\n$trailingShareText")))
+            //myApplication.shareData()
         }
     }
 

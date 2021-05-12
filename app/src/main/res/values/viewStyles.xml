@@ -35,4 +35,17 @@
         <item name="android:windowEnterAnimation">@anim/scale_up</item>
         <item name="android:windowExitAnimation">@anim/scale_down</item>
     </style>
+
+
+    <style name="Theme.Kawa.AdAttribution">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingStart">@dimen/_2sdp</item>
+        <item name="android:paddingEnd">@dimen/_2sdp</item>
+        <item name="android:text">@string/ad_attribution</item>
+        <item name="android:background">@color/colorRedSun</item>
+    </style>
 </resources>

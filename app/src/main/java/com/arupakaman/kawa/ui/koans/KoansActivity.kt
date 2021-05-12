@@ -11,8 +11,6 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
-import androidx.core.view.contains
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -28,6 +26,7 @@ class KoansActivity : AppCompatActivity() {
 
     companion object{
         const val STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        private val TIME_INTERVAL = 2000 // # milliseconds, desired time passed between two back presses.
     }
 
     private val koansActivityViewModel by lazy { ViewModelProvider(this).get(
@@ -36,7 +35,11 @@ class KoansActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityKoansBinding.inflate(layoutInflater) }
     private val permissionChecker by lazy { PermissionChecker(this) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private val navHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.navHostFragment) }
+
+    private var mBackPressed: Long = 0
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(MyAppPref.themeMode)
         setContentView(mBinding.root)
@@ -138,13 +141,18 @@ class KoansActivity : AppCompatActivity() {
                 showSnackBarMessage(mBinding.root, getString(R.string.failure_set_wallpaper))
             }
         })
+
+        koansActivityViewModel.liveShareData.observeAsEvent(this, {
+            val (bitmap, shareText) = it
+            shareData(bitmap, shareText)
+        })
     }
 
 
 
     private fun NavController.setDestinationChangeListener(){
 
-        fun NavigationView.resetMenu(@MenuRes menuRes: Int, selectedItemId:Int){
+        fun NavigationView.resetMenu(@MenuRes menuRes: Int, selectedItemId: Int){
             menu.clear()
             inflateMenu(menuRes)
 
@@ -155,42 +163,46 @@ class KoansActivity : AppCompatActivity() {
         }
 
 
-        /*fun setDrawerMode(drawerMode:Int, @DrawableRes navigationIcon:Int){
-            mBinding.drawerLayout.setDrawerLockMode(drawerMode)
+        fun setNavigationIcon(/*drawerMode:Int,*/ @DrawableRes navigationIcon: Int){
+            //mBinding.drawerLayout.setDrawerLockMode(drawerMode)
             mBinding.partialToolbar.toolbar.setNavigationIcon(navigationIcon)
-        }*/
+        }
 
         addOnDestinationChangedListener { _, destination, arguments ->
 
-            /*if (destination.id==R.id.itemNow && arguments?.containsKey("koan") == true)
+            val isOnKoanDetailViaList = arguments?.containsKey("index") == true
+            if (destination.id==R.id.itemNow && isOnKoanDetailViaList)
             {
-                setDrawerMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, R.drawable.ic_arrow_back)
+                setNavigationIcon(/*DrawerLayout.LOCK_MODE_LOCKED_CLOSED,*/ R.drawable.ic_arrow_back)
 
                 mBinding.partialToolbar.toolbar.setNavigationOnClickListener {
                     onBackPressed()
                 }
             }
             else{
-                setDrawerMode(DrawerLayout.LOCK_MODE_UNLOCKED, R.drawable.ic_circle_boundary)
+                setNavigationIcon(/*DrawerLayout.LOCK_MODE_UNLOCKED,*/ R.drawable.ic_circle_boundary)
 
                 mBinding.setHomeNavigationToOpenDrawer()
-            }*/
+            }
 
 
-            mBinding.partialToolbar.appBar.setExpanded(true,true)
+            mBinding.partialToolbar.appBar.setExpanded(true, true)
 
             when (destination.id) {
                 R.id.itemNow, R.id.itemImageInfo -> {
 
-                    if (destination.id==R.id.itemNow)
-                    {
-                        if (arguments?.containsKey("koan") == true)
-                        {
-                            mBinding.navigationView.resetMenu(R.menu.menu_navigation3,destination.id)
-                        }
-                        else if (mBinding.navigationView.menu.size()!=9){
+                    if (destination.id == R.id.itemNow) {
+                        if (isOnKoanDetailViaList) {
+                            mBinding.navigationView.resetMenu(
+                                R.menu.menu_navigation3,
+                                destination.id
+                            )
+                        } else if (mBinding.navigationView.menu.size() != 9) {
 
-                            mBinding.navigationView.resetMenu(R.menu.menu_navigation,destination.id)
+                            mBinding.navigationView.resetMenu(
+                                R.menu.menu_navigation,
+                                destination.id
+                            )
                             Log.d("destinationChangedList", "adding all items")
 
                         }
@@ -201,9 +213,11 @@ class KoansActivity : AppCompatActivity() {
 
                 }
                 else->{
-                    if (mBinding.navigationView.menu.size()!=5 || mBinding.navigationView.menu.findItem(R.id.itemAllKoans)==null)
+                    if (mBinding.navigationView.menu.size()!=5 || mBinding.navigationView.menu.findItem(
+                            R.id.itemAllKoans
+                        )==null)
                     {
-                        mBinding.navigationView.resetMenu(R.menu.menu_navigation2,destination.id)
+                        mBinding.navigationView.resetMenu(R.menu.menu_navigation2, destination.id)
 
                         mBinding.navigationView.setThemeChangeListener()
                         Log.d("destinationChangedList", "adding menu 2")
@@ -211,7 +225,10 @@ class KoansActivity : AppCompatActivity() {
                 }
             }
 
-            Log.d("destinationChangedList", "checkedItem: "+mBinding.navigationView.checkedItem?.title?.toString())
+            Log.d(
+                "destinationChangedList",
+                "checkedItem: " + mBinding.navigationView.checkedItem?.title?.toString()
+            )
         }
     }
 
@@ -235,17 +252,45 @@ class KoansActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
             saveImageViaLegacyStorage()
         }
         else{
-            Toast.makeText(applicationContext, getString(R.string.request_for_storage_permission), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.request_for_storage_permission),
+                Toast.LENGTH_LONG
+            ).show()
             openAppSettings()
         }
-
     }
 
+    override fun onBackPressed() {
+        if (navHostFragment?.childFragmentManager?.backStackEntryCount==0)
+        {
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+            {
+                super.onBackPressed()
+                return
+            }
+            else { Toast.makeText(applicationContext, getString(R.string.back_again_to_exit), Toast.LENGTH_SHORT).show(); }
+
+            mBackPressed = System.currentTimeMillis()
+        }
+        else{
+            super.onBackPressed()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
 }

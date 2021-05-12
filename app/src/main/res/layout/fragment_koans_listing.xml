@@ -12,6 +12,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.koans.list.KoansListingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,10 +24,15 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:itemCount="10"
-        cardData="@{viewModel.liveKoans}"
+        cardDataWithAd="@{viewModel.liveKoansWithAd}"
         tools:listitem="@layout/item_koan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+
+    <include
+        android:id="@+id/partialAdContainer"
+        layout="@layout/partial_ad_container"/>
 
 </LinearLayout>
 </layout>

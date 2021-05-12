@@ -9,11 +9,13 @@
     </data>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_weight="1"
+            android:layout_height="0dp">
             <androidx.constraintlayout.motion.widget.MotionLayout
                 android:id="@+id/motionLayoutImageInfo"
                 android:layout_width="match_parent"
@@ -77,6 +79,11 @@
 
             </androidx.constraintlayout.motion.widget.MotionLayout>
         </androidx.core.widget.NestedScrollView>
+
+
+        <include
+            android:id="@+id/partialAdContainer"
+            layout="@layout/partial_ad_container"/>
     </LinearLayout>
 
 </layout>

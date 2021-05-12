@@ -31,6 +31,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.use
+import com.google.android.material.color.MaterialColors
 
 /**
  * Retrieve a color from the current [android.content.res.Resources.Theme].
@@ -40,11 +41,12 @@ import androidx.core.content.res.use
 fun Context.themeColor(
     @AttrRes themeAttrId: Int
 ): Int {
-    return obtainStyledAttributes(
+    return MaterialColors.getColor(this,themeAttrId,Color.TRANSPARENT)
+    /*return obtainStyledAttributes(
         intArrayOf(themeAttrId)
     ).use {
         it.getColor(0, Color.MAGENTA)
-    }
+    }*/
 }
 
 /**

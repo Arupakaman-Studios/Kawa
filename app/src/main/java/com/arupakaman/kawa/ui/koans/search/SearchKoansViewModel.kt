@@ -6,10 +6,7 @@ import androidx.lifecycle.*
 import com.arupakaman.kawa.data.database.KoansDatabase
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.model.HighlightedKoans
-import com.arupakaman.kawa.utils.isNightMode
-import com.arupakaman.kawa.utils.sanitizeSearchQuery
-import com.arupakaman.kawa.utils.toHighlightedText
-import com.arupakaman.kawa.utils.toPlainText
+import com.arupakaman.kawa.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,7 +16,7 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
 
     // first: search query
     // second: adapter type
-    private val liveSearchQuery = MutableLiveData<Pair<String, Int>>()
+    private val liveSearchQuery = MutableLiveData<String>()
 
     /*val liveKoans:LiveData<List<Koan>> = Transformations.switchMap(liveSearchQuery){ (searchQuery,adapterType)->
         //koanDao.searchKoans(searchQuery)
@@ -35,33 +32,49 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
     val liveKoanNoResult : LiveData<Boolean>
         get() = _liveKoanNoResult
 
+    private val _liveAdapterType = MutableLiveData<Event<Int>>()
+    val liveAdapterType : LiveData<Event<Int>>
+        get() = _liveAdapterType
+
+    fun getAdapterType() = _liveAdapterType.value?.peekContent()?: ADAPTER_TYPE_LIST
+
+    fun seAdapterTypeCardIfItWasAlreadySet(){
+        if (getAdapterType()== ADAPTER_TYPE_CARD){
+            _liveAdapterType.value = Event(ADAPTER_TYPE_CARD)
+        }
+    }
+
     init {
+        _liveAdapterType.value = Event(ADAPTER_TYPE_LIST)
 
+        liveKoansCard.addSource(liveSearchQuery) { searchQuery ->
+            if (getAdapterType() == ADAPTER_TYPE_CARD) {
 
-        liveKoansCard.addSource(liveSearchQuery) { (searchQuery, adapterType) ->
-            if (adapterType == ADAPTER_TYPE_CARD) {
                 val koans = koanDao.searchKoansByTitle(searchQuery)
+
                 liveKoansCard.addSource(koans){
                     _liveKoanNoResult.value= searchQuery.isNotEmpty() && it.isEmpty()
                     liveKoansCard.value=it
                 }
+
             }
         }
 
 
-        liveKoansHighlightedList.addSource(liveSearchQuery) { (searchQuery, adapterType) ->
+        liveKoansHighlightedList.addSource(liveSearchQuery) { searchQuery ->
 
-            if (adapterType == ADAPTER_TYPE_LIST) {
+            if (getAdapterType() == ADAPTER_TYPE_LIST) {
 
                 val koans = koanDao.searchKoansByFts(searchQuery.sanitizeSearchQuery())
 
                 liveKoansHighlightedList.addSource(koans) { koansList ->
 
                     viewModelScope.launch(Dispatchers.Default) {
+
                         val highlightColor = if (application.isNightMode()) "#FFFFFF" else "#000000"
                         val listOfHighlightedKoans = koansList.map { koan ->
                             val highlightedKoan = koan.getHighlightedString(searchQuery,highlightColor)
-                            Log.d("highlighted query",highlightedKoan)
+                          //  Log.d("highlighted query",highlightedKoan)
                             HighlightedKoans(koan, highlightedKoan)
                         }
                         _liveKoanNoResult.postValue(searchQuery.isNotEmpty() && listOfHighlightedKoans.isEmpty())
@@ -73,6 +86,16 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
 
+    }
+
+    fun toggleAdapterType(){
+        viewModelScope.launch (Dispatchers.Default){
+            val currentAdapterType = _liveAdapterType.value?.peekContent()
+            if (currentAdapterType== ADAPTER_TYPE_CARD)
+                _liveAdapterType.postValue(Event(ADAPTER_TYPE_LIST))
+            else
+                _liveAdapterType.postValue(Event(ADAPTER_TYPE_CARD))
+        }
     }
 
     private fun Koan.getHighlightedString(searchQuery: String, highlightColor:String): String {
@@ -102,8 +125,8 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
 
-        Log.d("indexOfPrevWord",indexOfPrevWord.toString())
-        Log.d("plainKoan",plainKoan)
+        /*Log.d("indexOfPrevWord",indexOfPrevWord.toString())
+        Log.d("plainKoan",plainKoan)*/
 
         val trimmedKoan= if (indexOfPrevWord==0)
             if (plainKoan.length>=indexOfPrevWord+50) plainKoan.substring(0,indexOfPrevWord+50) else plainKoan
@@ -114,8 +137,13 @@ class SearchKoansViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun searchKoans(searchQuery: String, adapterType: Int) {
-        liveSearchQuery.postValue(Pair(searchQuery.trim(), adapterType))
+    fun searchKoans(searchQuery: String/*, adapterType: Int*/) {
+        liveSearchQuery.postValue(searchQuery.trim())
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("SearchKoansViewModel","onCleared called")
     }
 
     /* Like Query
