@@ -26,7 +26,7 @@ import com.google.android.material.transition.MaterialElevationScale
  *
  * ---
  *
- * Step 2: add transition for detail'screen root view
+ * Step 2: add transition for detail's screen root view
  *
  * for ex:
  *

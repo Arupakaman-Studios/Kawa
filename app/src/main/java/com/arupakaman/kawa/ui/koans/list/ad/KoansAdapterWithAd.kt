@@ -1,5 +1,6 @@
 package com.arupakaman.kawa.ui.koans.list.ad
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -29,6 +30,8 @@ class KoansAdapterWithAd(private val koanClickListener:KoanClickListener) : List
     }
 
     override fun getItemViewType(position: Int): Int {
+        Log.d("getItemViewType: ", "position: $position, list size: $itemCount")
+
         return AdManager.getNativeAdType(getItem(position))?:VIEW_TYPE_KOAN
     }
 
@@ -59,11 +62,14 @@ class KoansAdapterWithAd(private val koanClickListener:KoanClickListener) : List
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         if (getItemViewType(position)== VIEW_TYPE_NATIVE_AD)
         {
+            Log.d("onBindViewHolder: ", "position: $position, list size: $itemCount")
             AdManager.bindNativeAdData(holder,getItem(position))
         }
         else{
+            Log.d("onBindViewHolder: ", "position: $position, list size: $itemCount")
             (holder as KoanViewHolder).bind(getItem(position) as Koan)
         }
     }

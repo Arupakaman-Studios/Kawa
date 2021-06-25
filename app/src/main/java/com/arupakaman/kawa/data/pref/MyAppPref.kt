@@ -19,7 +19,6 @@ object MyAppPref {
         pref= context.getSharedPreferences("AppPref", Context.MODE_PRIVATE)
     }
 
-
     var currentKoanId by long()
 
     var koanTextSize by int(FONT_SIZE_MIN)
@@ -27,6 +26,12 @@ object MyAppPref {
     var koanTypeface by int(TYPEFACE_BI_MINCHO)
 
     var themeMode by int(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+    var isKoanDetailShown by boolean(false)
+
+    var isNotificationEnabled by boolean(true)
+
+    //var isKoanDetailShownFromListing by boolean(false)
 
     // delegates for string preference
     fun string(defaultValue:String="",key:(KProperty<*>)->String = KProperty<*>::name): ReadWriteProperty<Any, String> =
@@ -44,7 +49,7 @@ object MyAppPref {
      }
 
     // delegates for int preference
-    fun long(defaultValue: Long=-1, key:(KProperty<*>)->String = KProperty<*>::name) : ReadWriteProperty<Any, Long> = object : ReadWriteProperty<Any, Long>{
+    private fun long(defaultValue: Long=-1, key:(KProperty<*>)->String = KProperty<*>::name) : ReadWriteProperty<Any, Long> = object : ReadWriteProperty<Any, Long>{
 
         override fun setValue(thisRef: Any, property: KProperty<*>, value: Long) {
             pref?.edit()?.putLong(key(property),value)?.apply()
@@ -63,6 +68,17 @@ object MyAppPref {
 
         override fun getValue(thisRef: Any, property: KProperty<*>): Int {
             return pref?.getInt(key(property),defaultValue)?:-1
+        }
+    }
+
+    fun boolean(defaultValue: Boolean=false, key:(KProperty<*>)->String = KProperty<*>::name) : ReadWriteProperty<Any, Boolean> = object : ReadWriteProperty<Any, Boolean>{
+
+        override fun setValue(thisRef: Any, property: KProperty<*>, value: Boolean) {
+            pref?.edit()?.putBoolean(key(property),value)?.apply()
+        }
+
+        override fun getValue(thisRef: Any, property: KProperty<*>): Boolean {
+            return pref?.getBoolean(key(property),defaultValue)?:false
         }
     }
 }

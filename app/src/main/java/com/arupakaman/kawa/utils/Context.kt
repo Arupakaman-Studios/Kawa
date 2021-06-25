@@ -30,6 +30,7 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import com.arupakaman.kawa.BuildConfig
 import com.arupakaman.kawa.R
+import com.arupakaman.kawa.data.pref.MyAppPref
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -203,6 +204,10 @@ suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes res
     return@withContext result.getOrNull()
 }
 
+const val NOTIFICATION_CHANNEL_KOAN_REMINDER="Koan Reminder"
+const val NOTIFICATION_CHANNEL_ESSENTIAL="Essential"
+const val NOTIFICATION_CHANNEL_UPDATES="App Updates"
+
 /**
  * Fire a notification for the given title and message
  *
@@ -212,8 +217,11 @@ suspend fun Context.savePhotoViaLegacyStorage(fileName: String, @DrawableRes res
  *
  */
 @Suppress("DEPRECATION")
-fun Context.showNotification(intent: Intent, title: String, message: String)
+fun Context.showNotification(channel:String, intent: Intent, title: String, message: String)
 {
+    if (channel!=NOTIFICATION_CHANNEL_ESSENTIAL && !MyAppPref.isNotificationEnabled)
+        return
+
     val notificationManager=applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val  notificationBuilder: NotificationCompat.Builder
 
@@ -227,10 +235,10 @@ fun Context.showNotification(intent: Intent, title: String, message: String)
 
     if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O)
     {
-        notificationBuilder= NotificationCompat.Builder(applicationContext, title)
+        notificationBuilder= NotificationCompat.Builder(applicationContext, channel)
         val notificationChannel= NotificationChannel(
-            title,
-            title,
+            channel,
+            channel,
             NotificationManager.IMPORTANCE_DEFAULT
         )
 

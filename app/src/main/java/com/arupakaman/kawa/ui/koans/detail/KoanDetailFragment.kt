@@ -2,22 +2,25 @@ package com.arupakaman.kawa.ui.koans.detail
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.arupakaman.kawa.KoansGenerator
+import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.databinding.FragmentKoanDetailBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 import com.arupakaman.kawa.ui.koans.detail.adapter.KoanDetailAdapter
-import com.arupakaman.kawa.utils.bindKoanDetailAdapter
-import com.arupakaman.kawa.utils.getDimenFromSize
+import com.arupakaman.kawa.utils.*
 import com.arupakaman.kawa.utils.motions.setupSharedElementTransitionToContainerTransform
 import com.flavours.AdManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class KoanDetailFragment : Fragment() {
 
@@ -28,6 +31,9 @@ class KoanDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupSharedElementTransitionToContainerTransform()
+
+        if (arguments?.containsKey("index")==true)
+            setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -48,7 +54,9 @@ class KoanDetailFragment : Fragment() {
         {
             koansActivitySharedViewModel.setAllKoansForDetail()
         }
-
+        /*else{
+            showRightSwipeGesture()
+        }*/
 
         setObserver()
 
@@ -72,6 +80,50 @@ class KoanDetailFragment : Fragment() {
             AdManager.showAd(container,AdManager.BANNER_AD_KOAN_DETAIL)
         }
 
+        showLeftSwipeGesture()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_koan_detail,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId==R.id.itemOpenDrawer)
+            koansActivitySharedViewModel.setOpenDrawerEvent()
+        return super.onOptionsItemSelected(item)
+    }
+
+    /*private fun showRightSwipeGesture(){
+        if (!MyAppPref.isKoanDetailShownFromListing)
+        {
+            lifecycleScope.launch(Dispatchers.Default){
+                delay(1000)
+                withContext(Dispatchers.Main){
+                    activity?.showGestureIntro(TYPE_RIGHT_SWIPE){
+                        koansActivitySharedViewModel.setOpenDrawerEvent()
+                    }
+                    MyAppPref.isKoanDetailShownFromListing=true
+                }
+            }
+        }
+    }*/
+
+    private fun showLeftSwipeGesture(){
+        if (!MyAppPref.isKoanDetailShown)
+        {
+            lifecycleScope.launch(Dispatchers.Default){
+                delay(1000)
+                withContext(Dispatchers.Main){
+                    activity?.showGestureIntro(TYPE_LEFT_SWIPE){
+                        binding?.viewPager2?.let {pager->
+                            pager.setCurrentItem(pager.currentItem+1,true)
+                        }
+                    }
+                    MyAppPref.isKoanDetailShown=true
+                }
+            }
+        }
     }
 
 

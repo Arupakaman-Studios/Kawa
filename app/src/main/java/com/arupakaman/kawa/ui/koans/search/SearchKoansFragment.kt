@@ -130,12 +130,16 @@ class SearchKoansFragment : Fragment() {
                 mBinding.imgListType.setImageResource(R.drawable.ic_list)
                 mBinding.rvKoans.adapter = KoansAdapter(koanClickListener)
 
+                mBinding.etSearch.hint = getString(R.string.search_by_koan_title)
                 /*searchKoansViewModel.liveKoansHighlightedList.value?.let {
                     koansActivitySharedViewModel.setKoanListForDetailByHighlightedKoan(it)
                 }*/
             } else{
+
                 mBinding.imgListType.setImageResource(R.drawable.ic_square)
                 mBinding.rvKoans.adapter = KoansListAdapter(koanClickListener)
+
+                mBinding.etSearch.hint = getString(R.string.search_by_koan)
 
                 /*searchKoansViewModel.liveKoansCard.value?.let {
                     koansActivitySharedViewModel.setKoanListForDetail(it)

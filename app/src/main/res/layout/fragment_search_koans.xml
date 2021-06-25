@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:ellipsize="end"
-                android:hint="@string/hint_search"
+                android:hint="@string/search_by_koan"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLines="1"

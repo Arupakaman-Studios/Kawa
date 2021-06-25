@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.databinding.DialogChangeThemeBinding
+import com.arupakaman.kawa.databinding.DialogGestureIntroBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,6 +58,31 @@ fun Activity.getMyDialog(root: View): MyDialog {
     d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     d.setContentView(root)
     return d
+}
+
+const val TYPE_LEFT_SWIPE=1
+const val TYPE_RIGHT_SWIPE=2
+fun Activity.showGestureIntro(type:Int, onDismiss:()->Unit){
+    val binding = DialogGestureIntroBinding.inflate(layoutInflater)
+    val dialog = getMyDialog(binding.root)
+    binding.run {
+        if (type== TYPE_LEFT_SWIPE)
+            lottieAnimation.setAnimation("swipe_gesture_left.json")
+        else
+            lottieAnimation.setAnimation("swipe_gesture_right.json")
+        lottieAnimation.playAnimation()
+
+        lottieAnimation.onClick(){
+            if (dialog.isShowing)
+                dialog.dismiss()
+        }
+    }
+    dialog.setCancelable(true)
+    dialog.show()
+
+    dialog.setOnDismissListener {
+        onDismiss()
+    }
 }
 
 const val FONT_SIZE_MIN = 16

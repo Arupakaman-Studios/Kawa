@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/itemNow"
         android:title="@string/nav_item_now"/>
@@ -27,5 +28,10 @@
 
     <item android:id="@+id/itemAbout"
         android:title="@string/nav_item_about"/>
+
+    <item android:id="@+id/itemNotificationSwitch"
+        android:checkable="false"
+        app:actionLayout="@layout/partial_notification_switch"
+        android:title="@string/notification"/>
 
 </menu>

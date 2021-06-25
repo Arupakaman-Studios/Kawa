@@ -11,8 +11,10 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.ui.koans.KoansActivity
 import com.arupakaman.kawa.utils.makeItFullScreenStatusBarHidden
+import com.arupakaman.kawa.work.NotificationWork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,13 +27,17 @@ class SplashActivity : AppCompatActivity() {
 
         makeItFullScreenStatusBarHidden()
 
-
-
         //MediaPlayerManager.init(applicationContext,this)
 
         lifecycleScope.launch(Dispatchers.Default){
 
             setFluidAnimation(applicationContext)
+
+            if (intent.hasExtra(NotificationWork.KEY_KOAN_ID))
+            {
+                val koanId = intent.getLongExtra(NotificationWork.KEY_KOAN_ID,0L)
+                MyAppPref.currentKoanId = koanId
+            }
 
             delay(2500)
             KoansDatabase.getKoanDao(applicationContext).getFirstKoan()

@@ -31,10 +31,10 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:alpha="0" />
         <Constraint
-            android:id="@+id/txtKrishna"
+            android:id="@+id/imgKrishna"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_10sdp"
             motion:layout_constraintTop_toBottomOf="@+id/dedicatedTo"
             motion:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
@@ -44,7 +44,7 @@
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_15sdp"
-            motion:layout_constraintTop_toBottomOf="@+id/txtKrishna"
+            motion:layout_constraintTop_toBottomOf="@+id/imgKrishna"
             motion:layout_constraintStart_toStartOf="parent"
             android:alpha="0" />
         <Constraint

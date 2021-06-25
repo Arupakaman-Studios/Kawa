@@ -57,6 +57,11 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
     val liveKoanListForDetail : LiveData<List<Any>>
         get() = _liveKoanListForDetail
 
+    private val _liveOpenDrawer by lazy { MutableLiveData<Event<Unit>>() }
+    val liveOpenDrawer : LiveData<Event<Unit>>
+        get() = _liveOpenDrawer
+
+
     init {
         setKoanTextSize(MyAppPref.koanTextSize)
 
@@ -96,6 +101,10 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
     fun setKoanTypeface(typeface: Typeface?)=viewModelScope.launch(Dispatchers.Default){
         if (typeface!=null)
             _liveKoanTypeFace.postValue(typeface)
+    }
+
+    fun setOpenDrawerEvent(){
+        _liveOpenDrawer.postValue(Event(Unit))
     }
 
     /**
@@ -144,7 +153,7 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
                 val toLaunch = Intent()
                 toLaunch.action = Intent.ACTION_VIEW
                 toLaunch.setDataAndType(fileUri, MimeTypeMap.getSingleton().getMimeTypeFromExtension("jpeg"))
-                myApplication.showNotification(toLaunch, fileName, "saved at $filePath")
+                myApplication.showNotification(NOTIFICATION_CHANNEL_ESSENTIAL, toLaunch, fileName, "saved at $filePath")
             }
         }
         else{

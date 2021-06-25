@@ -13,6 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
+        android:clipChildren="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -60,6 +61,10 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtKoan"
+            android:shadowColor="#00FFFFFF"
+            android:shadowDx="48"
+            android:shadowDy="0"
+            android:shadowRadius="1"
             android:justificationMode="inter_word"
             htmlString="@{koan.koan}"
             android:layout_width="0dp"

@@ -21,17 +21,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtKrishna"
+        <ImageView
+            android:id="@+id/imgKrishna"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:fontFamily="@font/satsuki_gendai_mincho"
             android:gravity="center"
-            android:text="@string/krishna_in_japanese"
+            android:src="@drawable/ic_krishna_japanese"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dedicatedTo" />
+            app:layout_constraintTop_toBottomOf="@+id/dedicatedTo"
+            android:contentDescription="@string/this_app_is_dedicated_to_krishna"
+            app:tint="?colorControlNormal" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -42,8 +43,8 @@
             android:src="@drawable/ic_flute"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtKrishna"
-            app:tint="?colorBorder" />
+            app:layout_constraintTop_toBottomOf="@+id/imgKrishna"
+            app:tint="?colorControlNormal" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDonate"

@@ -26,7 +26,6 @@ fun RecyclerView.addOnScrollListenerToKeyboardHandling(act: Activity, fragmentVi
                 }
             }
 
-
             if (dy > 0) {
                 act.hideKeyboard(fragmentView)
                 lastState = KEYBOARD_HIDDEN

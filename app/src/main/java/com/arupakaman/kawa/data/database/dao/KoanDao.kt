@@ -30,4 +30,7 @@ interface KoanDao {
 
     @Query("SELECT * FROM Koan WHERE id=(SELECT min(id) FROM Koan)")
     fun getFirstKoan():Koan
+
+    @Query("SELECT * FROM Koan ORDER BY RANDOM() LIMIT 1")
+    fun getRandomKoan():Koan
 }

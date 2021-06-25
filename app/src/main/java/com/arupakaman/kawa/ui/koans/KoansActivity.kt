@@ -5,11 +5,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -26,7 +28,7 @@ class KoansActivity : AppCompatActivity() {
 
     companion object{
         const val STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
-        private val TIME_INTERVAL = 2000 // # milliseconds, desired time passed between two back presses.
+        private const val TIME_INTERVAL = 2000 // # milliseconds, desired time passed between two back presses.
     }
 
     private val koansActivityViewModel by lazy { ViewModelProvider(this).get(
@@ -54,8 +56,8 @@ class KoansActivity : AppCompatActivity() {
         mBinding.setListeners()
         mBinding.setupNavigationItemClicks()
         navController.setDestinationChangeListener()
+        setNotificationSwitchListener()
         setObserver()
-
     }
 
     private fun NavigationView.setThemeChangeListener(){
@@ -71,6 +73,10 @@ class KoansActivity : AppCompatActivity() {
         mBinding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
+    private fun openDrawer(){
+        mBinding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+
     private fun ActivityKoansBinding.setupNavigationItemClicks(){
 
 
@@ -78,7 +84,12 @@ class KoansActivity : AppCompatActivity() {
 
         navigationView.menu.run {
 
+
             findItem(R.id.itemShare).setOnMenuItemClickListener {
+
+                /*showInAppReviewDialog()
+                return@setOnMenuItemClickListener true*/
+
                 koansActivityViewModel.liveCurrentKoan.value?.let { currentKoan->
                     koansActivityViewModel.shareKoan(currentKoan)
                 }
@@ -146,9 +157,20 @@ class KoansActivity : AppCompatActivity() {
             val (bitmap, shareText) = it
             shareData(bitmap, shareText)
         })
+
+        koansActivityViewModel.liveOpenDrawer.observeAsEvent(this,{
+            openDrawer()
+        })
     }
 
-
+    fun setNotificationSwitchListener(){
+        val itemNotificationSwitch =mBinding.navigationView.menu.findItem(R.id.itemNotificationSwitch)
+        val switchNotification= itemNotificationSwitch.actionView.findViewById<SwitchCompat>(R.id.switchNotification)
+        switchNotification.isChecked=MyAppPref.isNotificationEnabled
+        switchNotification.setOnCheckedChangeListener { _, isChecked ->
+                MyAppPref.isNotificationEnabled=isChecked
+        }
+    }
 
     private fun NavController.setDestinationChangeListener(){
 
@@ -173,7 +195,7 @@ class KoansActivity : AppCompatActivity() {
             val isOnKoanDetailViaList = arguments?.containsKey("index") == true
             if (destination.id==R.id.itemNow && isOnKoanDetailViaList)
             {
-                setNavigationIcon(/*DrawerLayout.LOCK_MODE_LOCKED_CLOSED,*/ R.drawable.ic_arrow_back)
+                setNavigationIcon(/*DrawerLayout.LOCK_MODE_LOCKED_CLOSED,*/ R.drawable.ic_semi_arc_left)
 
                 mBinding.partialToolbar.toolbar.setNavigationOnClickListener {
                     onBackPressed()
@@ -248,7 +270,7 @@ class KoansActivity : AppCompatActivity() {
 
     private fun ActivityKoansBinding.setHomeNavigationToOpenDrawer(){
         partialToolbar.toolbar.setNavigationOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+            openDrawer()
         }
     }
 
@@ -289,8 +311,4 @@ class KoansActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
 }
