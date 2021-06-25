@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "590152520106",
+    "project_id": "kawa-8e880",
+    "storage_bucket": "kawa-8e880.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590152520106:android:481d9bb1a005d4bb735bd3",
+        "android_client_info": {
+          "package_name": "com.arupakaman.kawa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590152520106-d0ghlv5h4ksrh8lajmc2634co5j74q2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXpR9nmdW5HjKXjwGedSgVSOOji3Ey5RY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590152520106-d0ghlv5h4ksrh8lajmc2634co5j74q2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

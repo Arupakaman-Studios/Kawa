@@ -27,7 +27,7 @@
     <string name="krishna_in_japanese">クリシュナ</string>
     <string name="share"><u>share</u></string>
     <string name="rate"><u>rate</u></string>
-    <string name="donate"><u>donate</u></string>
+    <string name="donate"><u>get donation version</u></string>
     <string name="content_desc_flute">flute</string>
 
     <string name="artist_name">by %1s</string>
@@ -37,23 +37,25 @@
     <string name="transition_koan_detail">koan_detail</string>
 
     <string name="dismiss">Dismiss</string>
-    <string name="success_set_wallpaper">Wallpaper has been set successfully</string>
-    <string name="failure_set_wallpaper">Some error occurred while setting the wallpaper</string>
+    <string name="success_set_wallpaper">Wallpaper applied to home screen.</string>
+    <string name="failure_set_wallpaper">Some error occurred while setting the wallpaper.</string>
     <string name="font_name_sans_serif">sans-serif</string>
     <string name="font_name_bi_mincho">bi mincho</string>
     <string name="font_name_serif">serif</string>
     <string name="font_size_preview">Aa</string>
-    <string name="request_for_storage_permission">Please grant the storage permission to download the image</string>
+    <string name="request_for_storage_permission">Please grant the storage permission to download the image.</string>
 
     <string name="download_app_to_read_complete_koan">To read the complete koan, download the Kawa application from here:
     \nhttps://play.google.com/store/apps/details?id=%1$s</string>
 
-    <string name="download_app_to_read_more_koan">To read the more koans, download the Kawa application from here:
+    <string name="download_app_to_read_more_koan">To read more koans, download the Kawa application from here:
     \nhttps://play.google.com/store/apps/details?id=%1$s</string>
 
     <!--Share App-->
     <string name="title_share_via">Share via :</string>
-    <string name="msg_share_app">Kawa contains 101 zen koans(riddle, story), download and start reading it now:
+    <string name="msg_share_app">
+        With Kawa, you can read over 100 zen stories with beautiful paintings. Zen Koans are short stories containing moral values and enigmas that challenge your mind. These stories come from various sources and different zen masters.
+        \n\nDownload Kawa and start reading the koans now:
         \nhttps://play.google.com/store/apps/details?id=%1$s</string>
     <string name="err_no_app_can_share_it">Couldn\'t find any app that can share data</string>
 
@@ -62,7 +64,11 @@
     <string name="what_you_seek_is_seeking_you">What you seek is seeking you…</string>
 
     <string name="ad_attribution">Ad</string>
-    <string name="back_again_to_exit">Tap back button in order to exit</string>
+    <string name="back_again_to_exit">Tap the back button to exit</string>
+    <string name="search_by_koan_title">Search by koan title</string>
+    <string name="search_by_koan">Search by koan</string>
+    <string name="menu_item_title_open_drawer">Open Drawer</string>
+    <string name="notification">Notification</string>
 
     <!--<string name="test_admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="test_banner_ad_id">ca-app-pub-3940256099942544/6300978111</string>-->
