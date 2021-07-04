@@ -68,7 +68,7 @@
     <string name="search_by_koan_title">Search by koan title</string>
     <string name="search_by_koan">Search by koan</string>
     <string name="menu_item_title_open_drawer">Open Drawer</string>
-    <string name="notification">Notification</string>
+    <string name="notification">notification</string>
 
     <!--<string name="test_admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="test_banner_ad_id">ca-app-pub-3940256099942544/6300978111</string>-->
