@@ -1,7 +1,8 @@
 package com.arupakaman.kawa.ui.koans
 
 import android.Manifest
-import android.app.Application
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -18,18 +19,23 @@ import androidx.lifecycle.*
 import com.arupakaman.kawa.BuildConfig
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.database.dao.KoanDao
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.model.HighlightedKoans
 import com.arupakaman.kawa.model.KoanImage
 import com.arupakaman.kawa.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.system.measureTimeMillis
 
+@HiltViewModel
+class KoansActivitySharedViewModel @Inject constructor(@ApplicationContext application: Context, val koanDao: KoanDao) : ViewModel() {
 
-class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(application) {
-
+    @SuppressLint("StaticFieldLeak")
     private val myApplication = application
 
     private val _liveWallpaperResult = MutableLiveData<Event<Boolean>>()
@@ -43,7 +49,7 @@ class KoansActivitySharedViewModel(application: Application) : AndroidViewModel(
     val currentImage : KoanImage?
         get() = _liveCurrentKoan.value?.koanImage
 
-    private val koanDao by lazy { KoansDatabase.getKoanDao(myApplication) }
+    //private val koanDao by lazy { KoansDatabase.getKoanDao(myApplication) }
 
     private val _liveKoanTextSize by lazy { MutableLiveData<Int>() }
     val liveKoanTextSize : LiveData<Int>

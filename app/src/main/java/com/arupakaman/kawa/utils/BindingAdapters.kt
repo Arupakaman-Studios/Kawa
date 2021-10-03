@@ -58,14 +58,14 @@ fun RecyclerView.bindSearchResult(list: List<HighlightedKoans>?){
         }
     }
 }
-
+/*
 @BindingAdapter("koansData")
 fun ViewPager2.bindKoanDetailAdapter(list: List<Any>?){
     list?.let {
         adapter= KoanDetailAdapter(it)
         Log.d("detail","setAdapterCalled")
     }
-}
+}*/
 
 @BindingAdapter("htmlString")
 fun TextView.setHtmlString(string: String?){

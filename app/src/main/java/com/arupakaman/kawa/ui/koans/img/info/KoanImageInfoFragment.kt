@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.databinding.FragmentKoanImageInfoBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
@@ -12,8 +13,8 @@ import com.flavours.AdManager
 
 class KoanImageInfoFragment : Fragment() {
 
-    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(
-        KoansActivitySharedViewModel::class.java) }
+    private val koansActivitySharedViewModel by activityViewModels<KoansActivitySharedViewModel>()/*lazy { ViewModelProvider(requireActivity()).get(
+        KoansActivitySharedViewModel::class.java) }*/
 
 
     val binding by lazy { FragmentKoanImageInfoBinding.inflate(layoutInflater) }

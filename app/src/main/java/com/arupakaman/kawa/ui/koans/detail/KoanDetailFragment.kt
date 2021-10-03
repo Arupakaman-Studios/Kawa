@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
@@ -13,10 +14,12 @@ import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.databinding.FragmentKoanDetailBinding
 import com.arupakaman.kawa.ui.koans.KoansActivitySharedViewModel
+import com.arupakaman.kawa.ui.koans.detail.adapter.BottomReachListener
 import com.arupakaman.kawa.ui.koans.detail.adapter.KoanDetailAdapter
 import com.arupakaman.kawa.utils.*
 import com.arupakaman.kawa.utils.motions.setupSharedElementTransitionToContainerTransform
 import com.flavours.AdManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,7 +29,7 @@ class KoanDetailFragment : Fragment() {
 
     private var binding:FragmentKoanDetailBinding?=null
 
-    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(KoansActivitySharedViewModel::class.java) }
+    private val koansActivitySharedViewModel by activityViewModels<KoansActivitySharedViewModel>() //lazy { ViewModelProvider(requireActivity()).get(KoansActivitySharedViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +83,7 @@ class KoanDetailFragment : Fragment() {
             AdManager.showAd(container,AdManager.BANNER_AD_KOAN_DETAIL)
         }
 
-        showLeftSwipeGesture()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -154,7 +157,17 @@ class KoanDetailFragment : Fragment() {
         koansActivitySharedViewModel.liveKoanListForDetail.observe(viewLifecycleOwner,{
             Log.d("koanList:", "from detail"+it.size.toString())
 
-            binding?.viewPager2?.bindKoanDetailAdapter(it)
+            //binding?.viewPager2?.bindKoanDetailAdapter(it)
+
+            if (!MyAppPref.isKoanDetailShown){
+                binding?.viewPager2?.adapter= KoanDetailAdapter(it, BottomReachListener {
+                    showLeftSwipeGesture()
+                })
+            }
+            else{
+                binding?.viewPager2?.adapter= KoanDetailAdapter(it,null)
+            }
+
 
             try {
                 val bundle = KoanDetailFragmentArgs.fromBundle(requireArguments())

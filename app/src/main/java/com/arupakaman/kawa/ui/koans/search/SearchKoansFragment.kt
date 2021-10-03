@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.databinding.FragmentSearchKoansBinding
@@ -16,18 +18,20 @@ import com.arupakaman.kawa.utils.*
 import com.arupakaman.kawa.utils.motions.navigateToContainerTransform
 import com.arupakaman.kawa.utils.motions.postponeEnterTrans
 import com.flavours.AdManager
+import dagger.hilt.android.AndroidEntryPoint
 
 const val ADAPTER_TYPE_CARD=1
 const val ADAPTER_TYPE_LIST=2
 
+@AndroidEntryPoint
 class SearchKoansFragment : Fragment() {
 
     //private var adapterType = ADAPTER_TYPE_LIST
 
     private val mBinding by lazy {FragmentSearchKoansBinding.inflate(layoutInflater)}
-    private val searchKoansViewModel by lazy { ViewModelProvider(this).get(SearchKoansViewModel::class.java) }
-    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(
-        KoansActivitySharedViewModel::class.java) }
+    private val searchKoansViewModel by viewModels<SearchKoansViewModel>()//lazy { ViewModelProvider(this).get(SearchKoansViewModel::class.java) }
+    private val koansActivitySharedViewModel by activityViewModels<KoansActivitySharedViewModel>()/*lazy { ViewModelProvider(requireActivity()).get(
+        KoansActivitySharedViewModel::class.java) }*/
 
     private var fragmentCreated = false
 

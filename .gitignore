@@ -18,3 +18,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+app/paid/release/
+app/ad/release/

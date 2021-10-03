@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.databinding.FragmentKoansListingBinding
@@ -14,14 +16,17 @@ import com.arupakaman.kawa.ui.koans.list.ad.KoansAdapterWithAd
 import com.arupakaman.kawa.utils.motions.navigateToContainerTransform
 import com.arupakaman.kawa.utils.motions.postponeEnterTrans
 import com.flavours.AdManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class KoansListingFragment : Fragment() {
 
     private var fragmentCreated = false
 
     private val mBinding by lazy { FragmentKoansListingBinding.inflate(layoutInflater) } // :FragmentKoansListingBinding?=null //
-    private val koansListingViewModel by lazy { ViewModelProvider(this).get(KoansListingViewModel::class.java) }
-    private val koansActivitySharedViewModel by lazy { ViewModelProvider(requireActivity()).get(KoansActivitySharedViewModel::class.java) }
+
+    private val koansListingViewModel by viewModels<KoansListingViewModel>()//lazy { ViewModelProvider(this).get(KoansListingViewModel::class.java) }
+    private val koansActivitySharedViewModel by activityViewModels<KoansActivitySharedViewModel>()//lazy { ViewModelProvider(requireActivity()).get(KoansActivitySharedViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

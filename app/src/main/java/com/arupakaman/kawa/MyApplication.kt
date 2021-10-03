@@ -3,17 +3,21 @@ package com.arupakaman.kawa
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.work.Constraints
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.*
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.work.NotificationWork
 import com.flavours.AdManager
 import com.google.firebase.messaging.FirebaseMessaging
+import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class MyApplication : Application() {
+@HiltAndroidApp
+class MyApplication : Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -36,11 +40,17 @@ class MyApplication : Application() {
             .setRequiresBatteryNotLow(true)
             .build()
 
-        val periodicRequest = PeriodicWorkRequestBuilder<NotificationWork>(20, TimeUnit.MINUTES)
-            .setInitialDelay(20, TimeUnit.MINUTES)
+        val periodicRequest = PeriodicWorkRequestBuilder<NotificationWork>(7, TimeUnit.DAYS)
+            .setInitialDelay(7, TimeUnit.DAYS)
             .setConstraints(constraint).build()
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(NotificationWork.WORK_NAME,
             ExistingPeriodicWorkPolicy.REPLACE,periodicRequest)
+    }
+
+    override fun getWorkManagerConfiguration(): Configuration {
+        return Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
     }
 }

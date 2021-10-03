@@ -1,18 +1,24 @@
 package com.arupakaman.kawa.ui.koans.search
 
-import android.app.Application
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
-import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.database.dao.KoanDao
 import com.arupakaman.kawa.data.database.entities.Koan
 import com.arupakaman.kawa.model.HighlightedKoans
 import com.arupakaman.kawa.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchKoansViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+@SuppressLint("StaticFieldLeak")
+class SearchKoansViewModel @Inject constructor(@ApplicationContext val application: Context, val koanDao:KoanDao) : ViewModel() {
 
-    private val koanDao = KoansDatabase.getKoanDao(application)
+    //private val koanDao = KoansDatabase.getKoanDao(application)
 
     // first: search query
     // second: adapter type

@@ -1,18 +1,25 @@
 package com.arupakaman.kawa.ui.koans.list
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.database.dao.KoanDao
 import com.flavours.AdManager
 import com.flavours.destroyNativeAds
 import com.flavours.isAd
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class KoansListingViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class KoansListingViewModel @Inject constructor(val koanDao : KoanDao) : ViewModel() {
 
-    private val koanDao = KoansDatabase.getKoanDao(application)
+    /*@Inject
+    lateinit var koanDao : KoanDao*/ //= KoansDatabase.getKoanDao(application)
 
     // first: koan list, second: withAd?, if second is true means ad is added to the list
     private val _liveKoansWithAd = MediatorLiveData<List<Any>>()

@@ -5,8 +5,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +22,10 @@ import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.databinding.ActivityKoansBinding
 import com.arupakaman.kawa.utils.*
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class KoansActivity : AppCompatActivity() {
 
     companion object{
@@ -31,11 +33,14 @@ class KoansActivity : AppCompatActivity() {
         private const val TIME_INTERVAL = 2000 // # milliseconds, desired time passed between two back presses.
     }
 
-    private val koansActivityViewModel by lazy { ViewModelProvider(this).get(
+    private val koansActivityViewModel:KoansActivitySharedViewModel by viewModels() /* by lazy { ViewModelProvider(this).get(
         KoansActivitySharedViewModel::class.java
-    ) }
+    ) }*/
+
     private val mBinding by lazy { ActivityKoansBinding.inflate(layoutInflater) }
-    private val permissionChecker by lazy { PermissionChecker(this) }
+
+    @Inject
+    lateinit var permissionChecker:PermissionChecker // by lazy { PermissionChecker(this) }
 
     private val navHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.navHostFragment) }
 
@@ -164,11 +169,15 @@ class KoansActivity : AppCompatActivity() {
     }
 
     fun setNotificationSwitchListener(){
-        val itemNotificationSwitch =mBinding.navigationView.menu.findItem(R.id.itemNotificationSwitch)
-        val switchNotification= itemNotificationSwitch.actionView.findViewById<SwitchCompat>(R.id.switchNotification)
-        switchNotification.isChecked=MyAppPref.isNotificationEnabled
-        switchNotification.setOnCheckedChangeListener { _, isChecked ->
+        try {
+            val itemNotificationSwitch =mBinding.navigationView.menu.findItem(R.id.itemNotificationSwitch)
+            val switchNotification= itemNotificationSwitch.actionView.findViewById<SwitchCompat>(R.id.switchNotification)
+            switchNotification.isChecked=MyAppPref.isNotificationEnabled
+            switchNotification.setOnCheckedChangeListener { _, isChecked ->
                 MyAppPref.isNotificationEnabled=isChecked
+            }
+        }catch (e:Exception){
+            Log.e("notificationSwitch",e.toString())
         }
     }
 
@@ -229,6 +238,7 @@ class KoansActivity : AppCompatActivity() {
 
                         }
                         mBinding.setupNavigationItemClicks()
+                        setNotificationSwitchListener()
                     }
 
                     // ignore the click itemImageInfo

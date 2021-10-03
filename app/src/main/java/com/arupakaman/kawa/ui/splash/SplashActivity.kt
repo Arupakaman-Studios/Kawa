@@ -11,16 +11,24 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.arupakaman.kawa.R
 import com.arupakaman.kawa.data.database.KoansDatabase
+import com.arupakaman.kawa.data.database.dao.KoanDao
 import com.arupakaman.kawa.data.pref.MyAppPref
 import com.arupakaman.kawa.ui.koans.KoansActivity
 import com.arupakaman.kawa.utils.makeItFullScreenStatusBarHidden
 import com.arupakaman.kawa.work.NotificationWork
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var koanDao: KoanDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -40,7 +48,8 @@ class SplashActivity : AppCompatActivity() {
             }
 
             delay(2500)
-            KoansDatabase.getKoanDao(applicationContext).getFirstKoan()
+            //KoansDatabase.getKoanDao(applicationContext).getFirstKoan()
+            koanDao.getFirstKoan()
             withContext(Dispatchers.Main){
                 finish()
                 val intent = Intent(applicationContext,KoansActivity::class.java)
